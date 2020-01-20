@@ -1,3 +1,9 @@
+//---------------------------------------------------------------------
+//Developers Names: Tomas Stevens
+//Purpose: Developing homework 1's database and problems
+//Github:
+//Resources:??
+//---------------------------------------------------------------------
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
@@ -10,7 +16,7 @@ public static void menu() {
     System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
             "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
             "1: Create new database." +NL+
-            "2: Open database." +NL+
+            "2: Open databas    e." +NL+
             "3: Close database." +NL+
             "4: Display database." +NL+
             "5: Update database." +NL+
