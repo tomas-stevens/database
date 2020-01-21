@@ -1,17 +1,21 @@
 //---------------------------------------------------------------------
-//Developers Names: Tomas Stevens
+//Developers Names: Tomas Stevens, Divya Vardhan Singh
 //Purpose: Developing homework 1's database and problems
 //Github:
 //Resources:??
 //---------------------------------------------------------------------
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import java.util.Scanner;
 
 
 public class Main {
 
-public static void menu() {
+public static void menu() throws  IOException
+{
     String NL = System.lineSeparator();
     System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
             "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
@@ -27,7 +31,8 @@ public static void menu() {
     Switch_select();
 }
 
-public static void Switch_select(){
+public static void Switch_select() throws IOException
+{
     Scanner inp = new Scanner(System.in);
     int query = inp.nextInt();
     switch(query){
@@ -85,7 +90,7 @@ public static void Switch_select(){
 
 
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         menu();
     }
