@@ -15,14 +15,33 @@ import java.util.Scanner;
 public class Main {
 
     //global VAR
+    static String FILENAME = "input.txt";
     static String NL = System.lineSeparator();
+
+    // add binary search here for record finding.
+    //we pick the key
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public static void menu() throws  IOException
 {
     System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
             "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
             "1: Create new database." +NL+
-            "2: Open databas    e." +NL+
+            "2: Open database." +NL+
             "3: Close database." +NL+
             "4: Display database." +NL+
             "5: Update database." +NL+
@@ -35,6 +54,7 @@ public static void menu() throws  IOException
 
 public static void Switch_select() throws IOException
 {
+
     Scanner inp = new Scanner(System.in);
     int query = inp.nextInt();
     switch(query){
@@ -43,12 +63,23 @@ public static void Switch_select() throws IOException
 
             break;
         case 2:
-
             //open database
+
+            //make sure no database is open already!
+
+
+            System.out.println("Please enter the name of the CSV file you with to open!");
+            FILENAME = inp.next();
+            RandomAccessFile Din = new RandomAccessFile(FILENAME + ".config", "r");
+            RandomAccessFile Din1 = new RandomAccessFile(FILENAME + ".data", "r");
+            RandomAccessFile Din2 = new RandomAccessFile(FILENAME + ".overflow", "r");
             break;
         case 3:
+            System.out.println("closing current files/databases");
+            //Din.close();  <-- closses the current files/databases
+            //Din1.close();
+            //Din2.close();
 
-            //close database
             break;
         case 4:
 
