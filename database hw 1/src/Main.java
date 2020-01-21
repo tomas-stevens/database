@@ -32,20 +32,40 @@ public static void Switch_select(){
     int query = inp.nextInt();
     switch(query){
         case 1:
+            //create database
+
             break;
         case 2:
+
+            //open database
             break;
         case 3:
+
+            //close database
             break;
         case 4:
+
+
+            //display record
             break;
         case 5:
+
+            //update record
             break;
         case 6:
+
+
+            //create report
             break;
         case 7:
+
+
+            //add a report
             break;
         case 8:
+
+
+            //delete a record
             break;
         case 9:
             break;
