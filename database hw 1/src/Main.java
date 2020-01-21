@@ -14,9 +14,11 @@ import java.util.Scanner;
 
 public class Main {
 
+    //global VAR
+    static String NL = System.lineSeparator();
+
 public static void menu() throws  IOException
 {
-    String NL = System.lineSeparator();
     System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
             "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
             "1: Create new database." +NL+
@@ -27,7 +29,7 @@ public static void menu() throws  IOException
             "6: Create Report." +NL+
             "7: Add a record." +NL+
             "8: Delete a record." +NL+
-            "9: Exit the program.");
+            "9: Exit the program." +NL);
     Switch_select();
 }
 
@@ -73,6 +75,10 @@ public static void Switch_select() throws IOException
             //delete a record
             break;
         case 9:
+            System.out.println("Thank you for using our database, HW #1 program!"
+                    +NL +"Goodbye my friend (^.^)/");
+
+
             break;
         default:
             System.out.println("Please select the right numbers! <(^.^<) Try again!");
@@ -93,5 +99,6 @@ public static void Switch_select() throws IOException
     public static void main(String[] args) throws IOException
     {
         menu();
+        
     }
 }
