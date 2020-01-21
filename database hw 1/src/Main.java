@@ -1,15 +1,17 @@
 //---------------------------------------------------------------------
 //Developers Names: Tomas Stevens, Divya Vardhan Singh
 //Purpose: Developing homework 1's database and problems
-//Github:
+//Github:tomas-stevens, (divyas)
 //Resources:??
-//Time spent on project:15 mins,
+//Time spent on project:Tomas: 35 mins, Divya: 5 mins
 //---------------------------------------------------------------------
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
 import java.util.Scanner;
 
 
@@ -18,16 +20,18 @@ public class Main {
     //global VAR's
     static String FILENAME = "input.txt";
     static String NL = System.lineSeparator();
-
+    FileInputStream instream = null;
+    FileOutputStream outstream = null;
 
 
 
 
 
     // add binary search here for record finding.
-    //we pick the key
+//    we pick the key
+    /*Get record number n-th (from 1 to 4360) */
 
-//    /*Get record number n-th (from 1 to 4360) */
+
 //    //public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
 //    public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
 //    {
@@ -131,7 +135,7 @@ public static void Switch_select() throws IOException
 
             // most of the time / work here
 
-
+            menu();
             break;
         case 2:
             //open database
@@ -144,6 +148,8 @@ public static void Switch_select() throws IOException
             RandomAccessFile Din = new RandomAccessFile(FILENAME + ".config", "r");
             RandomAccessFile Din1 = new RandomAccessFile(FILENAME + ".data", "r");
             RandomAccessFile Din2 = new RandomAccessFile(FILENAME + ".overflow", "r");
+
+            menu();
             break;
         case 3:
             System.out.println("closing current files/databases");
@@ -151,39 +157,80 @@ public static void Switch_select() throws IOException
             //Din1.close();
             //Din2.close();
 
+            menu();
             break;
         case 4:
 
             //easy
             //display record
+            menu();
             break;
         case 5:
             //easy-med
             //update record
+            menu();
             break;
         case 6:
+            System.out.println("please enter the name of the database file you wish to create a report with!");
+            FILENAME = inp.next() + ".data";
+            //This should create a "human" readable file in ASCII (aka- .txt)
+            // form which should display the first ten records nicely formatted, in sorted order by primary key.
 
-            //This should create a "human" readable file in ASCII form which should display
-            //  the first ten records nicely formatted, in sorted order by primary key.
+            //||||||
+            //vvvvvv <-- possible solution
 
-            //easy-med
-            //create report
+            //public class CopyExample
+            //{
+            //    public static void main(String[] args)
+            //    {
+
+            //
+            //    	try{
+            //    	    File infile =new File("C:\\MyInputFile.txt");
+            //    	    File outfile =new File("C:\\MyOutputFile.txt");
+            //
+            //    	    instream = new FileInputStream(infile);
+            //    	    outstream = new FileOutputStream(outfile);
+            //
+            //    	    byte[] buffer = new byte[1024];
+            //
+            //    	    int length;
+            //    	    /*copying the contents from input stream to
+            //    	     * output stream using read and write methods
+            //    	     */
+            //    	    while ((length = instream.read(buffer)) > 0){
+            //    	    	outstream.write(buffer, 0, length);
+            //    	    }
+            //
+            //    	    //Closing the input/output file streams
+            //    	    instream.close();
+            //    	    outstream.close();
+            //
+            //    	    System.out.println("File copied successfully!!");
+            //
+            //    	}catch(IOException ioe){
+            //    		ioe.printStackTrace();
+            //    	 }
+            //    }
+            //}
+
+            menu();
             break;
         case 7:
 
             //med-hard
             //add a record
+            menu();
             break;
         case 8:
 
             //easy-med
             //delete a record
+            menu();
             break;
         case 9:
             System.out.println("Thank you for using our database, HW #1 program!"
                     +NL +"Goodbye my friend (^.^)/");
-
-
             break;
         default:
             System.out.println("Please select the right numbers! <(^.^<) Try again!");
