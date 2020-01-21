@@ -23,7 +23,7 @@ public class Main {
 
 
 
-    
+
     // add binary search here for record finding.
     //we pick the key
 
@@ -163,13 +163,16 @@ public static void Switch_select() throws IOException
             break;
         case 6:
 
+            //This should create a "human" readable file in ASCII form which should display
+            //  the first ten records nicely formatted, in sorted order by primary key.
+
             //easy-med
             //create report
             break;
         case 7:
 
             //med-hard
-            //add a report
+            //add a record
             break;
         case 8:
 
