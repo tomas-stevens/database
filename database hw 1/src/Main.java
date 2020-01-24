@@ -20,10 +20,43 @@ public class Main {
     //global VAR's
     static String FILENAME = "input.txt";
     static String NL = System.lineSeparator();
-    FileInputStream instream = null;
-    FileOutputStream outstream = null;
+    static FileInputStream instream = null;
+    static FileOutputStream outstream = null;
 
 
+
+
+        public static void CopyFile(String Path_1, String Path_2)
+        {
+
+
+        	try{
+        	    File infile =new File(Path_1);
+        	    File outfile =new File(Path_2);
+
+        	    instream = new FileInputStream(infile);
+        	    outstream = new FileOutputStream(outfile);
+
+        	    byte[] buffer = new byte[1024];
+
+        	    int length;
+        	    /*copying the contents from input stream to
+        	     * output stream using read and write methods
+        	     */
+        	    while ((length = instream.read(buffer)) > 0){
+        	    	outstream.write(buffer, 0, length);
+        	    }
+
+        	    //Closing the input/output file streams
+        	    instream.close();
+        	    outstream.close();
+
+        	    System.out.println("File copied successfully!!");
+
+        	}catch(IOException ioe){
+        		ioe.printStackTrace();
+        	 }
+        }
 
 
 
@@ -152,7 +185,8 @@ public static void Switch_select() throws IOException
             menu();
             break;
         case 3:
-            System.out.println("closing current files/databases");
+
+            System.out.println("closing current files/databases");  //untested but done
             //Din.close();  <-- closses the current files/databases
             //Din1.close();
             //Din2.close();
@@ -173,46 +207,16 @@ public static void Switch_select() throws IOException
         case 6:
             System.out.println("please enter the name of the database file you wish to create a report with!");
             FILENAME = inp.next() + ".data";
-            //This should create a "human" readable file in ASCII (aka- .txt)
+
+
+
             // form which should display the first ten records nicely formatted, in sorted order by primary key.
 
-            //||||||
-            //vvvvvv <-- possible solution
 
-            //public class CopyExample
-            //{
-            //    public static void main(String[] args)
-            //    {
+            CopyFile(FILENAME, "C:\\Users\\tomas\\Documents\\GitHub\\database\\database hw 1\\report.txt"); //<-- works
 
-            //
-            //    	try{
-            //    	    File infile =new File("C:\\MyInputFile.txt");
-            //    	    File outfile =new File("C:\\MyOutputFile.txt");
-            //
-            //    	    instream = new FileInputStream(infile);
-            //    	    outstream = new FileOutputStream(outfile);
-            //
-            //    	    byte[] buffer = new byte[1024];
-            //
-            //    	    int length;
-            //    	    /*copying the contents from input stream to
-            //    	     * output stream using read and write methods
-            //    	     */
-            //    	    while ((length = instream.read(buffer)) > 0){
-            //    	    	outstream.write(buffer, 0, length);
-            //    	    }
-            //
-            //    	    //Closing the input/output file streams
-            //    	    instream.close();
-            //    	    outstream.close();
-            //
-            //    	    System.out.println("File copied successfully!!");
-            //
-            //    	}catch(IOException ioe){
-            //    		ioe.printStackTrace();
-            //    	 }
-            //    }
-            //}
+
+            // form which should display the first ten records nicely formatted, in sorted order by primary key.
 
             menu();
             break;
@@ -229,11 +233,11 @@ public static void Switch_select() throws IOException
             menu();
             break;
         case 9:
-            System.out.println("Thank you for using our database, HW #1 program!"
+            System.out.println("Thank you for using our database, HW #1 program!"   //done
                     +NL +"Goodbye my friend (^.^)/");
             break;
         default:
-            System.out.println("Please select the right numbers! <(^.^<) Try again!");
+            System.out.println("Please select the right numbers! <(^.^<) Try again!");   //done
             Switch_select();
             break;
     }
