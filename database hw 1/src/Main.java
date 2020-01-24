@@ -8,6 +8,9 @@
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +25,8 @@ public class Main {
     static String NL = System.lineSeparator();
     static FileInputStream instream = null;
     static FileOutputStream outstream = null;
+    static int RECORD_SIZE = 71;
+    static int NUM_RECORDS = 4110;
 
 
 
@@ -45,7 +50,7 @@ public class Main {
         	     */
         	    while ((length = instream.read(buffer)) > 0){
         	    	outstream.write(buffer, 0, length);
-        	    }
+            	    }
 
         	    //Closing the input/output file streams
         	    instream.close();
@@ -59,26 +64,20 @@ public class Main {
         }
 
 
+    public static String getRecord(String FILENAME, int recordNum, int Add_Delete_Update) throws IOException
+    {
+        RandomAccessFile Din = new RandomAccessFile(FILENAME, "r");
+        String record = "NOT_FOUND";
+        if ((recordNum >=1) && (recordNum <= NUM_RECORDS))
+        {
+            Din.seek(0); // return to the top fo the file
+            Din.skipBytes(recordNum * RECORD_SIZE);
+            record = Din.readLine();
+        }
+        return record;
+    }
 
-    // add binary search here for record finding.
-//    we pick the key
-    /*Get record number n-th (from 1 to 4360) */
-
-
-//    //public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
-//    public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
-//    {
-//        String record = "NOT_FOUND";
-//        if ((recordNum >=1) && (recordNum <= NUM_RECORDS))
-//        {
-//            Din.seek(0); // return to the top fo the file
-//            Din.skipBytes(recordNum * RECORD_SIZE);
-//            record = Din.readLine();
-//        }
-//        return record;
-//    }
-//
-//    /*Binary Search record id */
+    /*Binary Search record id */
 //    public static String binarySearch(RandomAccessFile Din, String id) throws IOException
 //    {
 //        int Low = 0;
@@ -194,19 +193,25 @@ public static void Switch_select() throws IOException
             menu();
             break;
         case 4:
+            System.out.println("Please enter the name of the file you with to open!");
+            FILENAME = inp.next();
+            System.out.println("Please enter the record number you wish to display!");
+            int temp = inp.nextInt();
+            String Record = getRecord(FILENAME,temp, 0);
 
-            //easy
-            //display record
+            System.out.println("getRecord(n): \n" + Record + "\n\n");
+
             menu();
             break;
         case 5:
             //easy-med
+            //https://stackoverflow.com/questions/4614227/how-to-add-a-new-line-of-text-to-an-existing-file-in-java
             //update record
             menu();
             break;
         case 6:
             System.out.println("please enter the name of the database file you wish to create a report with!");
-            FILENAME = inp.next() + ".data";
+            FILENAME = inp.next();// + ".data";
 
 
 
@@ -221,12 +226,19 @@ public static void Switch_select() throws IOException
             menu();
             break;
         case 7:
+//            System.out.println("Please enter the name of the file you with to open!");
+//            FILENAME = inp.next();
+//            String Record = getRecord(FILENAME,1, 0);
+//            System.out.println("getRecord(7): \n" + Record + "\n\n");
 
+            //https://stackoverflow.com/questions/4614227/how-to-add-a-new-line-of-text-to-an-existing-file-in-java
             //med-hard
             //add a record
             menu();
             break;
         case 8:
+            //bin search
+            //delete record
 
             //easy-med
             //delete a record
@@ -242,14 +254,6 @@ public static void Switch_select() throws IOException
             break;
     }
 }
-
-
-
-
-
-
-
-
 
 
     public static void main(String[] args) throws IOException
