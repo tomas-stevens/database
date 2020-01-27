@@ -138,17 +138,7 @@ public static void Switch_select() throws IOException
         case 6:
             System.out.println("please enter the name of the database file you wish to create a report with!");
             FILENAME = inp.next();// + ".data";
-
-
-
-            // form which should display the first ten records nicely formatted, in sorted order by primary key.
-
-
-            CopyFile(FILENAME, "C:\\Users\\tomas\\Documents\\GitHub\\database\\database hw 1\\report.txt"); //<-- works
-
-
-            // form which should display the first ten records nicely formatted, in sorted order by primary key.
-
+            CopyFile(FILENAME, "report.txt"); //<-- works
             menu();
             break;
         case 7:
