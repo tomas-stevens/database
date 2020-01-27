@@ -5,18 +5,11 @@
 //Resources:??
 //Time spent on project:Tomas: 35 mins, Divya: 5 mins
 //---------------------------------------------------------------------
+import java.io.*;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.File;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.Writer;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.nio.file.Path;
 import java.util.Scanner;
-
 
 public class Main {
 
@@ -26,95 +19,28 @@ public class Main {
     static FileInputStream instream = null;
     static FileOutputStream outstream = null;
     static int RECORD_SIZE = 71;
-    static int NUM_RECORDS = 4110;
+    static int NUM_RECORDS = 500;
 
 
 
+//need to make it so it only copys first 10 strings
+        public static void CopyFile(String Path_1, String Path_2) {
 
-        public static void CopyFile(String Path_1, String Path_2)
-        {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(Path_2));
+                BufferedReader reader = new BufferedReader(new FileReader(Path_1));
 
+                for (int i = 0; i < 11; i++){
+                    writer.write(reader.readLine());
+                    writer.newLine();
 
-        	try{
-        	    File infile =new File(Path_1);
-        	    File outfile =new File(Path_2);
-
-        	    instream = new FileInputStream(infile);
-        	    outstream = new FileOutputStream(outfile);
-
-        	    byte[] buffer = new byte[1024];
-
-        	    int length;
-        	    /*copying the contents from input stream to
-        	     * output stream using read and write methods
-        	     */
-        	    while ((length = instream.read(buffer)) > 0){
-        	    	outstream.write(buffer, 0, length);
-            	    }
-
-        	    //Closing the input/output file streams
-        	    instream.close();
-        	    outstream.close();
-
-        	    System.out.println("File copied successfully!!");
-
-        	}catch(IOException ioe){
-        		ioe.printStackTrace();
-        	 }
+                }
+                writer.close();
+                System.out.println("File copied successfully!!");
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
-
-
-    public static String getRecord(String FILENAME, int recordNum, int Add_Delete_Update) throws IOException
-    {
-        RandomAccessFile Din = new RandomAccessFile(FILENAME, "r");
-        String record = "NOT_FOUND";
-        if ((recordNum >=1) && (recordNum <= NUM_RECORDS))
-        {
-            Din.seek(0); // return to the top fo the file
-            Din.skipBytes(recordNum * RECORD_SIZE);
-            record = Din.readLine();
-        }
-        return record;
-    }
-
-    /*Binary Search record id */
-//    public static String binarySearch(RandomAccessFile Din, String id) throws IOException
-//    {
-//        int Low = 0;
-//        int High = NUM_RECORDS-1;
-//        int Middle;
-//        String MiddleId;
-//        String record = "NOT_FOUND";
-//        boolean Found = false;
-//
-//        while (!Found && (High >= Low))
-//        {
-//            Middle = (Low + High) / 2;
-//            record = getRecord(Din, Middle+1);
-//            MiddleId = record.substring(0,5);
-//
-//            int result = MiddleId.compareTo(id);
-//            if (result == 0)   // ids match
-//                Found = true;
-//            else if (result < 0)
-//                Low = Middle + 1;
-//            else
-//                High = Middle - 1;
-//        }
-//        if (Found)
-//            return record;
-//        else
-//            return "NOT_FOUND";
-//    }
-//}
-
-
-
-
-
-
-
-
 
 
 
@@ -195,11 +121,11 @@ public static void Switch_select() throws IOException
         case 4:
             System.out.println("Please enter the name of the file you with to open!");
             FILENAME = inp.next();
-            System.out.println("Please enter the record number you wish to display!");
-            int temp = inp.nextInt();
-            String Record = getRecord(FILENAME,temp, 0);
+            System.out.println("Please enter what you wish to find!");
+            String temp = inp.next();
+           // String Record = binarySearch(FILENAME,temp);
 
-            System.out.println("getRecord(n): \n" + Record + "\n\n");
+       //     System.out.println("getRecord(n): \n" + Record + "\n\n");
 
             menu();
             break;

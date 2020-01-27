@@ -4,7 +4,7 @@ import java.io.RandomAccessFile;
 public class readDB 
 {
     static int RECORD_SIZE = 71;
-    static int NUM_RECORDS = 4110;
+    static int NUM_RECORDS = 500;
     static String FILENAME = "input.txt";
 
     public static void main(String[] args) throws IOException 
