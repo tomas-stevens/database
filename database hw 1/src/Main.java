@@ -3,7 +3,7 @@
 //Purpose: Developing homework 1's database and problems
 //Github:tomas-stevens, (divyas)
 //Resources:??
-//Time spent on project: Tomas: 2 hours
+//Time spent on project: Tomas: 6 hours
 //---------------------------------------------------------------------
 import java.io.*;
 import java.io.IOException;
@@ -25,8 +25,8 @@ public class Main {
 
 
 
-//need to make it so it only copys first 10 strings
-        public static void CopyFile(String Path_1, String Path_2) {
+
+    public static void CopyFile(String Path_1, String Path_2) {
 
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(Path_2));
@@ -44,25 +44,27 @@ public class Main {
             }
         }
 
-
-
-       public static void Create_config(String FILENAME) throws IOException {
+    public static void Create_config(String FILENAME, String Path_2) throws IOException {
 
            File f1=new File(FILENAME); //Creation of File Descriptor for input file
-           int linecount=0;            //Intializing linecount as zero
+           File f2 =new File(Path_2);
+           int linecount=0;            //Initializing linecount as zero
            FileReader fr=new FileReader(f1);  //Creation of File Reader object
+           FileWriter fw = new FileWriter(f2);
            BufferedReader br = new BufferedReader(fr);    //Creation of File Reader object
+           BufferedWriter bw = new BufferedWriter(fw);
            String s;
-           br.readLine(); //skips first line
            while((s=br.readLine())!=null)    //Reading Content from the file line by line
            {
                linecount++;               //For each line increment linecount by one
            }
-           fr.close();
            NUM_RECORDS = linecount;
+           bw.write(NUM_RECORDS);
+           fr.close();
+           System.out.println(".Config created successfully");
        }
 
-       public static void Create_Data(String Path_1, String Path_2){
+    public static void Create_Data(String Path_1, String Path_2){
            try {
                BufferedWriter writer = new BufferedWriter(new FileWriter(Path_2));
                BufferedReader reader = new BufferedReader(new FileReader(Path_1));
@@ -79,32 +81,31 @@ public class Main {
            }
        }
 
-       public static void Create_Overflow(String FILENAME){
+    public static void Create_Overflow(String FILENAME){
            try {
                File file = new File(FILENAME + ".overflow");
                file.createNewFile();
-               System.out.println("overflow created successfully");
+               System.out.println(".overflow created successfully");
            } catch (IOException e) {
                e.printStackTrace();
            }
        }
 
+    public static void Create_database(String FILENAME){
 
-public static void Create_database(String FILENAME){
-
-    try {
-        Create_config(FILENAME + ".csv");
-        Create_Data(FILENAME+".csv", FILENAME + ".data");
-        Create_Overflow(FILENAME);
+        try {
+            Create_Data(FILENAME+".csv", FILENAME + ".data");
+            Create_Overflow(FILENAME);
+            Create_config(FILENAME + ".data", FILENAME + ".config");
 
 
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 }
 
-public static void menu() throws  IOException{
+    public static void menu() throws  IOException{
     System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
             "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
             "1: Create new database." +NL+
@@ -119,8 +120,7 @@ public static void menu() throws  IOException{
     Switch_select();
 }
 
-public static void Switch_select() throws IOException
-{
+    public static void Switch_select() throws IOException {
 
     Scanner inp = new Scanner(System.in);
     int query = inp.nextInt();
@@ -142,8 +142,7 @@ public static void Switch_select() throws IOException
             //.data:   contains the data records, one per line, with fixed size fields. You may
             // use any separator you want (or no separator). There should be no blank records
 
-            //.overflow: empty
-           // <-- start implementing how to upload and split a CSV file.
+
 
 
 
@@ -225,8 +224,8 @@ public static void Switch_select() throws IOException
             System.out.println("Please select the right numbers! <(^.^<) Try again!");   //done
             Switch_select();
             break;
+        }
     }
-}
 
 
     public static void main(String[] args) throws IOException
