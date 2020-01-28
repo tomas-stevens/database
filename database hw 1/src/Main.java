@@ -8,8 +8,10 @@
 import java.io.*;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.Scanner;
+import java.io.FileReader;
 
 public class Main {
 
@@ -19,7 +21,7 @@ public class Main {
     static FileInputStream instream = null;
     static FileOutputStream outstream = null;
     static int RECORD_SIZE = 71;
-    static int NUM_RECORDS = 500;
+    static int NUM_RECORDS = 1;
 
 
 
@@ -44,17 +46,80 @@ public class Main {
 
 
 
+       public static void Create_config(String FILENAME) throws IOException {
+
+           File f1=new File(FILENAME); //Creation of File Descriptor for input file
+           int linecount=0;            //Intializing linecount as zero
+           FileReader fr=new FileReader(f1);  //Creation of File Reader object
+           BufferedReader br = new BufferedReader(fr);    //Creation of File Reader object
+           String s;
+           br.readLine(); //skips first line
+           while((s=br.readLine())!=null)    //Reading Content from the file line by line
+           {
+               linecount++;               //For each line increment linecount by one
+           }
+           fr.close();
+           NUM_RECORDS = linecount;
+       }
 
 
-public static void menu() throws  IOException
-{
+public static void Create_database(String FILENAME){
+
+    try {
+        Create_config(FILENAME);
+
+
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+
+////Input file which needs to be parsed
+//    BufferedReader fileReader = null;
+//
+//    //Delimiter used in CSV file
+//    final String DELIMITER = ",";
+//    try
+//    {
+//        String line = "";
+//        //Create the file reader
+//        fileReader = new BufferedReader(new FileReader(FILENAME));
+//
+//        //Read the file line by line
+//        while ((line = fileReader.readLine()) != null)
+//        {
+//            //Get all tokens available in line
+//            String[] tokens = line.split(DELIMITER);
+//            for(String token : tokens)
+//            {
+//                //Print all tokens
+//                System.out.println(token);
+//            }
+//        }
+//    }
+//    catch (Exception e) {
+//        e.printStackTrace();
+//    }
+//    finally
+//    {
+//        try {
+//            fileReader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+}
+
+public static void menu() throws  IOException{
     System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
             "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
             "1: Create new database." +NL+
             "2: Open database." +NL+
             "3: Close database." +NL+
-            "4: Display database." +NL+
-            "5: Update database." +NL+
+            "4: Display Record." +NL+
+            "5: Update Record." +NL+
             "6: Create Report." +NL+
             "7: Add a record." +NL+
             "8: Delete a record." +NL+
@@ -73,8 +138,8 @@ public static void Switch_select() throws IOException
             System.out.println("Please enter the name of the CSV file you with to open, without the .CSV!");
             FILENAME = inp.next() + ".csv";
 
+            Create_database(FILENAME);
 
-            //https://howtodoinjava.com/java/io/how-to-create-a-new-file-in-java/
 
             //pre-sorted data
             //six fields of data only
