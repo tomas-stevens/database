@@ -32,7 +32,7 @@ public class Main {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(Path_2));
                 BufferedReader reader = new BufferedReader(new FileReader(Path_1));
 
-                for (int i = 0; i < 11; i++){
+                for (int i = 0; i < 10; i++){
                     writer.write(reader.readLine());
                     writer.newLine();
 
@@ -62,60 +62,45 @@ public class Main {
            NUM_RECORDS = linecount;
        }
 
-       public static void Create_Data(String FILENAME){
+       public static void Create_Data(String Path_1, String Path_2){
+           try {
+               BufferedWriter writer = new BufferedWriter(new FileWriter(Path_2));
+               BufferedReader reader = new BufferedReader(new FileReader(Path_1));
+               reader.readLine();
+               for (int i = 0; i < 500; i++){
+                   writer.write(reader.readLine());
+                   writer.newLine();
 
+               }
+               writer.close();
+               System.out.println(".data created successfully!!");
+           } catch (IOException ioe) {
+               ioe.printStackTrace();
+           }
        }
 
-       public static void Create_Overflow(String FILENAME){}
+       public static void Create_Overflow(String FILENAME){
+           try {
+               File file = new File(FILENAME + ".overflow");
+               file.createNewFile();
+               System.out.println("overflow created successfully");
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
 
 
 public static void Create_database(String FILENAME){
 
     try {
-        Create_config(FILENAME);
-        Create_Data(FILENAME);
+        Create_config(FILENAME + ".csv");
+        Create_Data(FILENAME+".csv", FILENAME + ".data");
         Create_Overflow(FILENAME);
 
 
     } catch (IOException e) {
         e.printStackTrace();
     }
-
-
-////Input file which needs to be parsed
-//    BufferedReader fileReader = null;
-//
-//    //Delimiter used in CSV file
-//    final String DELIMITER = ",";
-//    try
-//    {
-//        String line = "";
-//        //Create the file reader
-//        fileReader = new BufferedReader(new FileReader(FILENAME));
-//
-//        //Read the file line by line
-//        while ((line = fileReader.readLine()) != null)
-//        {
-//            //Get all tokens available in line
-//            String[] tokens = line.split(DELIMITER);
-//            for(String token : tokens)
-//            {
-//                //Print all tokens
-//                System.out.println(token);
-//            }
-//        }
-//    }
-//    catch (Exception e) {
-//        e.printStackTrace();
-//    }
-//    finally
-//    {
-//        try {
-//            fileReader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 }
 
@@ -143,7 +128,7 @@ public static void Switch_select() throws IOException
         case 1:
             //create database
             System.out.println("Please enter the name of the CSV file you with to open, without the .CSV!");
-            FILENAME = inp.next() + ".csv";
+            FILENAME = inp.next();
 
             Create_database(FILENAME);
 
