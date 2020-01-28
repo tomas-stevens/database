@@ -62,12 +62,19 @@ public class Main {
            NUM_RECORDS = linecount;
        }
 
+       public static void Create_Data(String FILENAME){
+
+       }
+
+       public static void Create_Overflow(String FILENAME){}
+
 
 public static void Create_database(String FILENAME){
 
     try {
         Create_config(FILENAME);
-
+        Create_Data(FILENAME);
+        Create_Overflow(FILENAME);
 
 
     } catch (IOException e) {
