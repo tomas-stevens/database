@@ -3,7 +3,7 @@
 //Purpose: Developing homework 1's database and problems
 //Github:tomas-stevens, (divyas)
 //Resources:??
-//Time spent on project:Tomas: 35 mins, Divya: 5 mins
+//Time spent on project: Tomas: 2 hours
 //---------------------------------------------------------------------
 import java.io.*;
 import java.io.IOException;
