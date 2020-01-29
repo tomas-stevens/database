@@ -170,10 +170,9 @@ public class Main {
             menu();
             break;
         case 4:
-
-            System.out.println("Please enter what you wish to find!");
-            String temp = inp.next();
-           // String Record = binarySearch(FILENAME + ".data",temp);
+            System.out.println("Please enter the name of the company in the database you wish to find!");
+            String temp_find_name = inp.next();
+           // String Record = binarySearch(Din2, temp_find_name);
            // System.out.println("getRecord(n): \n" + Record + "\n\n");
 
             menu();
