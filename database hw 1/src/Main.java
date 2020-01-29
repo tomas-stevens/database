@@ -142,12 +142,7 @@ public class Main {
             //.data:   contains the data records, one per line, with fixed size fields. You may
             // use any separator you want (or no separator). There should be no blank records
 
-
-
-
-
-
-            // most of the time / work here
+            //.overflow initially empty
 
             menu();
             break;
@@ -175,13 +170,11 @@ public class Main {
             menu();
             break;
         case 4:
-            System.out.println("Please enter the name of the file you with to open!");
-            FILENAME = inp.next();
+
             System.out.println("Please enter what you wish to find!");
             String temp = inp.next();
-           // String Record = binarySearch(FILENAME,temp);
-
-       //     System.out.println("getRecord(n): \n" + Record + "\n\n");
+           // String Record = binarySearch(FILENAME + ".data",temp);
+           // System.out.println("getRecord(n): \n" + Record + "\n\n");
 
             menu();
             break;
@@ -192,14 +185,11 @@ public class Main {
             menu();
             break;
         case 6:
-            System.out.println("please enter the name of the database file you wish to create a report with!");
-            FILENAME = inp.next();// + ".data";
-            CopyFile(FILENAME, "report.txt"); //<-- works
+            CopyFile(FILENAME + ".data", "report.txt");                                        //<-- works
             menu();
             break;
+
         case 7:
-//            System.out.println("Please enter the name of the file you with to open!");
-//            FILENAME = inp.next();
 //            String Record = getRecord(FILENAME,1, 0);
 //            System.out.println("getRecord(7): \n" + Record + "\n\n");
 
