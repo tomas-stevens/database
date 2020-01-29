@@ -16,14 +16,27 @@ import java.io.FileReader;
 public class Main {
 
     //global VAR's
-    static String FILENAME = "input.txt";
+    static String FILENAME = "Fortune_500_HQ";
     static String NL = System.lineSeparator();
     static FileInputStream instream = null;
     static FileOutputStream outstream = null;
-    static int RECORD_SIZE = 71;
+    static int RECORD_SIZE = 110;
     static int NUM_RECORDS = 1;
 
+    private static int name = 40, rank = 5, state = 5, city = 20, zip = 20, emplyoees = 20;
 
+
+    public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
+    {
+        String record = "NOT_FOUND";
+        if ((recordNum >=1) && (recordNum <= NUM_RECORDS))
+        {
+            Din.seek(0); // return to the top fo the file
+            Din.skipBytes(recordNum * RECORD_SIZE);
+            record = Din.readLine();
+        }
+        return record;
+    }
 
 
     public static void CopyFile(String Path_1, String Path_2) {
@@ -48,29 +61,47 @@ public class Main {
 
            File f1=new File(FILENAME); //Creation of File Descriptor for input file
            File f2 =new File(Path_2);
-           int linecount=0;            //Initializing linecount as zero
            FileReader fr=new FileReader(f1);  //Creation of File Reader object
            FileWriter fw = new FileWriter(f2);
            BufferedReader br = new BufferedReader(fr);    //Creation of File Reader object
            BufferedWriter bw = new BufferedWriter(fw);
+
+           int linecount=0;            //Initializing linecount as zero
            String s;
+
            while((s=br.readLine())!=null)    //Reading Content from the file line by line
            {
                linecount++;               //For each line increment linecount by one
            }
            NUM_RECORDS = linecount;
-           bw.write(NUM_RECORDS);
+           bw.write(NUM_RECORDS + "number of records");
+           bw.newLine();
+
+           bw.write("Naming convention: rank " +rank+ ", name " +name+ ", city " +city+ ", State " +state+ ", zip "+zip+ ", employees "+ emplyoees );
+
+
+           bw.close();
            fr.close();
+
            System.out.println(".Config created successfully");
+
        }
 
     public static void Create_Data(String Path_1, String Path_2){
            try {
                BufferedWriter writer = new BufferedWriter(new FileWriter(Path_2));
                BufferedReader reader = new BufferedReader(new FileReader(Path_1));
-               reader.readLine();
+               reader.readLine(); // skips first line
                for (int i = 0; i < 500; i++){
-                   writer.write(reader.readLine());
+
+                   String line = reader.readLine();
+                   String[] temp = line.split(",");
+                   writer.write(String.format("%1$"+rank+"s",temp[0]));
+                   writer.write(String.format("%1$"+name+"s",temp[1]));
+                   writer.write(String.format("%1$"+city+"s",temp[2]));
+                   writer.write(String.format("%1$"+state+"s",temp[3]));
+                   writer.write(String.format("%1$"+zip+"s",temp[4]));
+                   writer.write(String.format("%1$"+emplyoees+"s",temp[5]));
                    writer.newLine();
 
                }
@@ -130,19 +161,7 @@ public class Main {
             System.out.println("Please enter the name of the CSV file you with to open, without the .CSV!");
             FILENAME = inp.next();
 
-            Create_database(FILENAME);
-
-
-            //pre-sorted data
-            //six fields of data only
-
-            //.config:  contains the number of records in the data file, describes the names, sizes of the fields in order,
-            // anything else you want. The first field is assumed to be the key
-
-            //.data:   contains the data records, one per line, with fixed size fields. You may
-            // use any separator you want (or no separator). There should be no blank records
-
-            //.overflow initially empty
+            Create_database(FILENAME);  // <------ finally finished
 
             menu();
             break;
@@ -189,7 +208,7 @@ public class Main {
             break;
 
         case 7:
-//            String Record = getRecord(FILENAME,1, 0);
+             // String Record = getRecord(Din1,1);
 //            System.out.println("getRecord(7): \n" + Record + "\n\n");
 
             //https://stackoverflow.com/questions/4614227/how-to-add-a-new-line-of-text-to-an-existing-file-in-java
@@ -220,6 +239,5 @@ public class Main {
     public static void main(String[] args) throws IOException
     {
         menu();
-
     }
 }
