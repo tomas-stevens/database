@@ -3,7 +3,7 @@
 //Purpose: Developing homework 1's database and problems
 //Github:tomas-stevens, (divyas)
 //Resources:??
-//Time spent on project: Tomas: 6 hours
+//Time spent on project: Tomas: 11 hours
 //---------------------------------------------------------------------
 import java.io.*;
 import java.io.IOException;
@@ -18,12 +18,14 @@ public class Main {
     //global VAR's
     static String FILENAME = "Fortune_500_HQ";
     static String NL = System.lineSeparator();
-    static FileInputStream instream = null;
-    static FileOutputStream outstream = null;
-    static int RECORD_SIZE = 110;
-    static int NUM_RECORDS = 1;
+    static int RECORD_SIZE = 112;
+    static int NUM_RECORDS = 499;
 
-    private static int name = 40, rank = 5, state = 5, city = 20, zip = 20, emplyoees = 20;
+    private static RandomAccessFile Din1;
+    private static RandomAccessFile Din2;
+    private static RandomAccessFile Din3;
+
+    private static int name = -40, rank = -5, state = -5, city = -20, zip = -20, emplyoees = -20;
 
 
     public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
@@ -31,13 +33,44 @@ public class Main {
         String record = "NOT_FOUND";
         if ((recordNum >=1) && (recordNum <= NUM_RECORDS))
         {
-            Din.seek(0); // return to the top fo the file
+            Din.seek(0);
             Din.skipBytes(recordNum * RECORD_SIZE);
             record = Din.readLine();
+            System.out.println(record.substring(5,45));
         }
         return record;
     }
 
+
+    /*Binary Search record id */
+    public static String binarySearch(RandomAccessFile Din, String id) throws IOException
+    {
+        int Low = 0;
+        int High = NUM_RECORDS-1;
+        int Middle;
+        String MiddleId;
+        String record = "NOT_FOUND";
+        boolean Found = false;
+
+        while (!Found && (High >= Low))
+        {
+            Middle = (Low + High) / 2;
+            record = getRecord(Din, Middle+1);
+            MiddleId = record.substring(5,45);                                         //  Fortune_500_HQ
+            MiddleId.trim();
+            int result = MiddleId.compareTo(id);
+            if (result == 0)   // ids match
+                Found = true;
+            else if (result < 0)
+                Low = Middle + 1;
+            else
+                High = Middle - 1;
+        }
+        if (Found)
+            return record;
+        else
+            return "NOT_FOUND";
+    }
 
     public static void CopyFile(String Path_1, String Path_2) {
 
@@ -74,7 +107,9 @@ public class Main {
                linecount++;               //For each line increment linecount by one
            }
            NUM_RECORDS = linecount;
-           bw.write(NUM_RECORDS + "number of records");
+           bw.write(NUM_RECORDS);
+           bw.newLine();
+           bw.write("number of records");
            bw.newLine();
 
            bw.write("Naming convention: rank " +rank+ ", name " +name+ ", city " +city+ ", State " +state+ ", zip "+zip+ ", employees "+ emplyoees );
@@ -166,6 +201,7 @@ public class Main {
             menu();
             break;
         case 2:
+
             //open database
 
             //make sure no database is open already!
@@ -173,26 +209,26 @@ public class Main {
 
             System.out.println("Please enter the name of the file you with to open!");
             FILENAME = inp.next();
-            RandomAccessFile Din = new RandomAccessFile(FILENAME + ".config", "r");
-            RandomAccessFile Din1 = new RandomAccessFile(FILENAME + ".data", "r");
-            RandomAccessFile Din2 = new RandomAccessFile(FILENAME + ".overflow", "r");
+            Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
+            Din2 = new RandomAccessFile(FILENAME + ".data", "rw");
+            Din3 = new RandomAccessFile(FILENAME + ".overflow", "rw");
 
             menu();
             break;
         case 3:
 
             System.out.println("closing current files/databases");  //untested but done
-            //Din.close();  <-- closses the current files/databases
-            //Din1.close();
-            //Din2.close();
+            Din1.close();  //<-- closses the current files/databases
+            Din2.close();
+            Din3.close();
 
             menu();
             break;
         case 4:
             System.out.println("Please enter the name of the company in the database you wish to find!");
             String temp_find_name = inp.next();
-           // String Record = binarySearch(Din2, temp_find_name);
-           // System.out.println("getRecord(n): \n" + Record + "\n\n");
+            String Record = binarySearch(Din2, temp_find_name);
+            System.out.println("getRecord(n): \n" + Record + "\n\n");
 
             menu();
             break;
@@ -208,8 +244,9 @@ public class Main {
             break;
 
         case 7:
-             // String Record = getRecord(Din1,1);
-//            System.out.println("getRecord(7): \n" + Record + "\n\n");
+
+            Record = getRecord(Din2,5);
+            System.out.println("getRecord(N): \n" + Record + "\n\n");
 
             //https://stackoverflow.com/questions/4614227/how-to-add-a-new-line-of-text-to-an-existing-file-in-java
             //med-hard
