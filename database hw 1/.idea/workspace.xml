@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6efc4867-f492-4705-a09a-17527c13df5c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Fortune_500_HQ.config" beforeDir="false" afterPath="$PROJECT_DIR$/Fortune_500_HQ.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fortune_500_HQ.data" beforeDir="false" afterPath="$PROJECT_DIR$/Fortune_500_HQ.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,7 +31,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5870" />
+          <entry key="Erlang Terms" value="3" />
+          <entry key="JAVA" value="6184" />
           <entry key="PLAIN_TEXT" value="6" />
         </counts>
       </usages-collector>
@@ -49,10 +49,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="30" column="90" lean-forward="true" selection-start-line="30" selection-start-column="90" selection-end-line="30" selection-end-column="90" />
+            <state relative-caret-position="-119">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#getRecord#0;class#Main#0" />
+                <element signature="method#binarySearch#0;class#Main#0" />
                 <element signature="method#CopyFile#0;class#Main#0" />
                 <element signature="method#Create_config#0;class#Main#0" />
                 <element signature="method#Create_Data#0;class#Main#0" />
@@ -68,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/report.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -88,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.config">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+            <state relative-caret-position="34">
+              <caret line="2" column="63" selection-start-line="2" selection-start-column="63" selection-end-line="2" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -140,6 +142,7 @@
       <list>
         <option value="$PROJECT_DIR$/readDB.java" />
         <option value="$PROJECT_DIR$/Fortune_500_HQ.data" />
+        <option value="$PROJECT_DIR$/Fortune_500_HQ.config" />
         <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
@@ -151,10 +154,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3633" />
-    <option name="y" value="-366" />
-    <option name="width" value="1734" />
-    <option name="height" value="1447" />
+    <option name="x" value="-7" />
+    <option name="y" value="1" />
+    <option name="width" value="1933" />
+    <option name="height" value="1085" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -180,7 +183,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1580409663776" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1580415340998" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Capstone" />
   </component>
   <component name="RunDashboard">
@@ -232,7 +235,7 @@
       <workItem from="1580141466936" duration="4591000" />
       <workItem from="1580185793251" duration="9814000" />
       <workItem from="1580308832152" duration="9546000" />
-      <workItem from="1580402961660" duration="6355000" />
+      <workItem from="1580402961660" duration="11425000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1580310148863</created>
@@ -245,10 +248,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55133000" />
+    <option name="totallyTimeSpent" value="60203000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3633" y="-366" width="1734" height="1447" extended-state="0" />
+    <frame x="-5" y="1" width="1546" height="868" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.104043126" />
@@ -260,7 +263,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32885906" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38309216" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24081632" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -339,13 +342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/report.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readDB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="952">
@@ -361,8 +357,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.config">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+        <state relative-caret-position="34">
+          <caret line="2" column="63" selection-start-line="2" selection-start-column="63" selection-end-line="2" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -381,6 +377,13 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/report.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.data">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -390,10 +393,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="30" column="90" lean-forward="true" selection-start-line="30" selection-start-column="90" selection-end-line="30" selection-end-column="90" />
+        <state relative-caret-position="-119">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#getRecord#0;class#Main#0" />
+            <element signature="method#binarySearch#0;class#Main#0" />
             <element signature="method#CopyFile#0;class#Main#0" />
             <element signature="method#Create_config#0;class#Main#0" />
             <element signature="method#Create_Data#0;class#Main#0" />

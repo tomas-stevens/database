@@ -2,8 +2,8 @@
 //Developers Names: Tomas Stevens, Divya Vardhan Singh
 //Purpose: Developing homework 1's database and problems
 //Github:tomas-stevens, (divyas)
-//Resources:??
-//Time spent on project: Tomas: 11 hours
+//Resources:stack overflow, geekforgeek, other sites
+//Time spent on project: Tomas: 12 hours, Divya, 10 hours
 //---------------------------------------------------------------------
 import java.io.*;
 import java.io.IOException;
@@ -20,6 +20,7 @@ public class Main {
     static String NL = System.lineSeparator();
     static int RECORD_SIZE = 112;
     static int NUM_RECORDS = 499;
+    static boolean Is_Open = false;
 
     private static RandomAccessFile Din1;
     private static RandomAccessFile Din2;
@@ -28,23 +29,18 @@ public class Main {
     private static int name = -40, rank = -5, state = -5, city = -20, zip = -20, emplyoees = -20;
 
 
-    public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException
-    {
+    public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException{
         String record = "NOT_FOUND";
         if ((recordNum >=1) && (recordNum <= NUM_RECORDS))
         {
             Din.seek(0);
             Din.skipBytes(recordNum * RECORD_SIZE);
             record = Din.readLine();
-            System.out.println(record.substring(5,45));
         }
         return record;
     }
 
-
-    /*Binary Search record id */
-    public static String binarySearch(RandomAccessFile Din, String id) throws IOException
-    {
+    public static String binarySearch(RandomAccessFile Din, String id) throws IOException{
         int Low = 0;
         int High = NUM_RECORDS-1;
         int Middle;
@@ -57,7 +53,7 @@ public class Main {
             Middle = (Low + High) / 2;
             record = getRecord(Din, Middle+1);
             MiddleId = record.substring(5,45);                                         //  Fortune_500_HQ
-            MiddleId.trim();
+            MiddleId = MiddleId.trim();
             int result = MiddleId.compareTo(id);
             if (result == 0)   // ids match
                 Found = true;
@@ -201,27 +197,31 @@ public class Main {
             menu();
             break;
         case 2:
+            if(Is_Open == false) {
+                //try catch incase of failure
 
-            //open database
-
-            //make sure no database is open already!
-
-
-            System.out.println("Please enter the name of the file you with to open!");
-            FILENAME = inp.next();
-            Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
-            Din2 = new RandomAccessFile(FILENAME + ".data", "rw");
-            Din3 = new RandomAccessFile(FILENAME + ".overflow", "rw");
-
+                System.out.println("Please enter the name of the file you with to open!");
+                FILENAME = inp.next();
+                Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
+                Din2 = new RandomAccessFile(FILENAME + ".data", "rw");
+                Din3 = new RandomAccessFile(FILENAME + ".overflow", "rw");
+                Is_Open = true;
+            }
+        else
+            System.out.println("database is open");
             menu();
             break;
         case 3:
-
-            System.out.println("closing current files/databases");  //untested but done
-            Din1.close();  //<-- closses the current files/databases
-            Din2.close();
-            Din3.close();
-
+            if (Is_Open) {
+                //try catch not open
+                System.out.println("closing current files/databases");  //untested but done
+                Din1.close();  //<-- closses the current files/databases
+                Din2.close();
+                Din3.close();
+                Is_Open = false;
+            }
+            else
+                System.out.println("No database to close");
             menu();
             break;
         case 4:
