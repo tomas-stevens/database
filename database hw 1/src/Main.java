@@ -65,9 +65,10 @@ public class Main {
         System.out.println("Please enter the name of the company you wish to delete from the database");
         String Record = binarySearch(Din, inp.next());
         if (!Record.equals("NOT_FOUND")) {
-            System.out.println("Is this the record you with to Delete? (y/n)" + NL + Record);
+            System.out.println("Is this the record you wish to Delete? (y/n)" + NL + Record);
             if (inp.next().equals("y") || inp.next().equals("Y")) {
                 String[] temp = new String[6];
+                temp[0] = Record.substring(0,5).trim();
                 temp[1] = Record.substring(5,45).trim();
                 temp[2] = Record.substring(45,65).trim();
                 temp[3] = Record.substring(65,70).trim();
@@ -93,16 +94,49 @@ public class Main {
         Overflow_handler();
     }
 
-    public static void Update_record(RandomAccessFile Din){
-        //request name of company to update
-        //get info from user
-        //form into string
-        //push to overflow
-        //run overflow querry
-        //exit function
+    public static void Update_record(RandomAccessFile Din) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow"));
+        Scanner inp = new Scanner(System.in);
+        System.out.println("Please enter the name of the company you wish to update from the database");
+        String Record = binarySearch(Din, inp.next());
 
-        String record;
 
+        if (!Record.equals("NOT_FOUND")) {
+            System.out.println("Is this the record you wish to update?" + NL + Record);
+
+            if (inp.next().equals("y") || inp.next().equals("Y")) {
+                System.out.println("please enter the updated information");
+                String[] temp = new String[6];
+                System.out.println("Please enter the Rank of the company");
+                temp[0] = inp.next();
+                temp[1] = Record.substring(5,45).trim();
+                System.out.println("Please enter the City of the company");
+                temp[2] = inp.next();
+                System.out.println("Please enter the State of the company");
+                temp[3] = inp.next();
+                System.out.println("Please enter the ZIP of the company");
+                temp[4] = inp.next();
+                System.out.println("Please enter the number of the employees in the company");
+                temp[5] = inp.next();
+
+                //update
+                writer.write(String.format("%1$"+rank+"s",temp[0]));
+                writer.write(String.format("%1$"+name+"s",temp[1]));
+                writer.write(String.format("%1$"+city+"s",temp[2]));
+                writer.write(String.format("%1$"+state+"s",temp[3]));
+                writer.write(String.format("%1$"+zip+"s",temp[4]));
+                writer.write(String.format("%1$"+emplyoees+"s",temp[5]));
+                writer.newLine();
+                writer.close();
+            }
+            else {
+                System.out.println("Returning to menu");
+            }
+        }
+        else
+            System.out.println("Record not found");
+
+        Overflow_handler();
     }
 
     public static void Overflow_handler(){
@@ -323,9 +357,9 @@ public class Main {
             menu();
             break;
         case 5:
-            //easy-med
-            //https://stackoverflow.com/questions/4614227/how-to-add-a-new-line-of-text-to-an-existing-file-in-java
-            //update record
+
+            Update_record(Din2);
+
             menu();
             break;
         case 6:
