@@ -28,6 +28,93 @@ public class Main {
 
     private static int name = -40, rank = -5, state = -5, city = -20, zip = -20, emplyoees = -20;
 
+    public static void Add_Record() throws IOException {
+        // get info from user
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow"));
+        Scanner inp = new Scanner(System.in);
+
+        String[] temp = new String[6];
+        System.out.println("Please enter the Rank of the company");
+        temp[0] = inp.next();
+        System.out.println("Please enter the name of the company");
+        temp[1] = inp.next();
+        System.out.println("Please enter the City of the company");
+        temp[2] = inp.next();
+        System.out.println("Please enter the State of the company");
+        temp[3] = inp.next();
+        System.out.println("Please enter the ZIP of the company");
+        temp[4] = inp.next();
+        System.out.println("Please enter the number of the employees in the company");
+        temp[5] = inp.next();
+        //form string from user info
+        writer.write(String.format("%1$"+rank+"s",temp[0]));
+        writer.write(String.format("%1$"+name+"s",temp[1]));
+        writer.write(String.format("%1$"+city+"s",temp[2]));
+        writer.write(String.format("%1$"+state+"s",temp[3]));
+        writer.write(String.format("%1$"+zip+"s",temp[4]));
+        writer.write(String.format("%1$"+emplyoees+"s",temp[5]));
+        writer.newLine();
+        writer.close();
+
+        Overflow_handler();
+    }
+
+    public static void Delete_record(RandomAccessFile Din) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow"));
+        Scanner inp = new Scanner(System.in);
+        System.out.println("Please enter the name of the company you wish to delete from the database");
+        String Record = binarySearch(Din, inp.next());
+        if (!Record.equals("NOT_FOUND")) {
+            System.out.println("Is this the record you with to Delete? (y/n)" + NL + Record);
+            if (inp.next().equals("y") || inp.next().equals("Y")) {
+                String[] temp = new String[6];
+                temp[1] = Record.substring(5,45).trim();
+                temp[2] = Record.substring(45,65).trim();
+                temp[3] = Record.substring(65,70).trim();
+                temp[4] = Record.substring(70,90).trim();
+                temp[5] = Record.substring(90,110).trim();
+                //delete
+                writer.write(String.format("%1$"+rank+"s","-1"));
+                writer.write(String.format("%1$"+name+"s",temp[1]));
+                writer.write(String.format("%1$"+city+"s",temp[2]));
+                writer.write(String.format("%1$"+state+"s",temp[3]));
+                writer.write(String.format("%1$"+zip+"s",temp[4]));
+                writer.write(String.format("%1$"+emplyoees+"s",temp[5]));
+                writer.newLine();
+                writer.close();
+            }
+            else {
+                System.out.println("Returning to menu");
+            }
+        }
+        else
+        System.out.println("Record not found");
+
+        Overflow_handler();
+    }
+
+    public static void Update_record(RandomAccessFile Din){
+        //request name of company to update
+        //get info from user
+        //form into string
+        //push to overflow
+        //run overflow querry
+        //exit function
+
+        String record;
+
+    }
+
+    public static void Overflow_handler(){
+        //is overflow full?
+        //if no exit function
+        //if yes update .data with each line from overflow.
+        //how???
+        //exit function
+
+        String record;
+
+    }
 
     public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException{
         String record = "NOT_FOUND";
@@ -197,9 +284,7 @@ public class Main {
             menu();
             break;
         case 2:
-            if(Is_Open == false) {
-                //try catch incase of failure
-
+            if(!Is_Open) {
                 System.out.println("Please enter the name of the file you with to open!");
                 FILENAME = inp.next();
                 Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
@@ -208,8 +293,10 @@ public class Main {
                 Is_Open = true;
             }
         else
-            System.out.println("database is open");
-            menu();
+            System.out.println("database is already open!");
+
+        menu();
+
             break;
         case 3:
             if (Is_Open) {
@@ -225,11 +312,14 @@ public class Main {
             menu();
             break;
         case 4:
-            System.out.println("Please enter the name of the company in the database you wish to find!");
-            String temp_find_name = inp.next();
-            String Record = binarySearch(Din2, temp_find_name);
-            System.out.println("getRecord(n): \n" + Record + "\n\n");
-
+            if(Is_Open) {
+                System.out.println("Please enter the name of the company in the database you wish to find!");
+                String temp_find_name = inp.next();
+                String Record = binarySearch(Din2, temp_find_name);
+                System.out.println("getRecord(n): \n" + Record + "\n\n");
+            }
+            else
+                System.out.println("please open a database");
             menu();
             break;
         case 5:
@@ -239,31 +329,36 @@ public class Main {
             menu();
             break;
         case 6:
+            if(Is_Open)
             CopyFile(FILENAME + ".data", "report.txt");                                        //<-- works
+            else
+                System.out.println("please open a database");
             menu();
-            break;
 
         case 7:
-
-            Record = getRecord(Din2,5);
-            System.out.println("getRecord(N): \n" + Record + "\n\n");
-
-            //https://stackoverflow.com/questions/4614227/how-to-add-a-new-line-of-text-to-an-existing-file-in-java
-            //med-hard
-            //add a record
+            if(Is_Open) {
+                Add_Record();
+            }
+            else
+                System.out.println("please open a database");
             menu();
+
             break;
         case 8:
-            //bin search
-            //delete record
-
-            //easy-med
-            //delete a record
+            Delete_record(Din2);
             menu();
+
             break;
         case 9:
+            if(!Is_Open){
             System.out.println("Thank you for using our database, HW #1 program!"   //done
-                    +NL +"Goodbye my friend (^.^)/");
+                +NL +"Goodbye my friend (^.^)/");
+                break;
+            }
+            else {
+                System.out.println("please close the database first!");
+                menu();
+            }
             break;
         default:
             System.out.println("Please select the right numbers! <(^.^<) Try again!");   //done
