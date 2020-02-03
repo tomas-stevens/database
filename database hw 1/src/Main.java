@@ -28,7 +28,7 @@ public class Main {
 
     private static int name = -40, rank = -5, state = -5, city = -20, zip = -20, emplyoees = -20;
 
-    public static void Add_Record() throws IOException {
+    public static void Add_Record(RandomAccessFile Din2, RandomAccessFile Din3) throws IOException {
         // get info from user
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
@@ -59,11 +59,11 @@ public class Main {
         Overflow_handler();
     }
 
-    public static void Delete_record(RandomAccessFile Din) throws IOException {
+    public static void Delete_record(RandomAccessFile Din2) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
         System.out.println("Please enter the name of the company you wish to delete from the database");
-        String Record = binarySearch(Din, inp.next());
+        String Record = binarySearch(Din2, inp.next());
         if (!Record.equals("NOT_FOUND")) {
             System.out.println("Is this the record you wish to Delete? (y/n)" + NL + Record);
             if (inp.next().equals("y") || inp.next().equals("Y")) {
@@ -94,11 +94,11 @@ public class Main {
         Overflow_handler();
     }
 
-    public static void Update_record(RandomAccessFile Din) throws IOException {
+    public static void Update_record(RandomAccessFile Din2, RandomAccessFile Din3) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
         System.out.println("Please enter the name of the company you wish to update from the database");
-        String Record = binarySearch(Din, inp.next());
+        String Record = binarySearch(Din2, inp.next());
 
 
         if (!Record.equals("NOT_FOUND")) {
@@ -139,85 +139,90 @@ public class Main {
     }
 
     public static void Overflow_handler() throws IOException {
-        File f1 = new File(FILENAME + ".data");
         File F_temp = new File(FILENAME + ".temp");
-        File f2 =new File(FILENAME + ".overflow");
-        RandomAccessFile RAF_temp = new RandomAccessFile(F_temp, "rw");
-        RandomAccessFile RAF = new RandomAccessFile(f2,"rw");
-        RandomAccessFile RAF2 = new RandomAccessFile(f1, "rw");
+
 
         int linecount = 0;
-        int linecount2 = 0;
         String[] Temp_overflow = new String[5];
         String s;
-
-        while((RAF.readLine())!=null)    //Reading Content from the file line by line
+        BufferedReader overflow_reader = new BufferedReader(new FileReader(FILENAME + ".overflow"));
+        while ((overflow_reader.readLine()) != null)    //Reading Content from the file line by line
         {
             linecount++;               //For each line increment linecount by one
         }
 
-        if(linecount == 4){
-            RAF.seek(0);
-            for(int i = 0; i < linecount; i++) {
-                Temp_overflow[i] = RAF.readLine();
+
+        if (linecount == 4) {
+            for (int i = 0; i < linecount; i++) {
+                Temp_overflow[i] = overflow_reader.readLine();  // reads in data from overflow
             }
+            overflow_reader.close();
+
 
             System.out.println("overflow is full, merging now." + NL);
 
-            while((s=RAF2.readLine())!=null)    //Reading Content from the file line by line
-            {
-                linecount2++;               //For each line increment linecount2 by one to get .data file
-            }
-
-            RAF2.seek(0);
             for (int j = 0; j < linecount; j++) {
-                for (int i = 0; i < linecount2; i++) {
-                    s = RAF2.readLine().substring(5,45);
-                    if(Temp_overflow[j].substring(5,45).compareTo(s) == 0){ // update record
+                //files to open and close each loop
+               // BufferedWriter data_writer = new BufferedWriter(new FileWriter(FILENAME + ".data"));
+                BufferedReader Data_reader = new BufferedReader(new FileReader(FILENAME + ".data"));
+                BufferedWriter temp_writer = new BufferedWriter(new FileWriter(F_temp));
+                BufferedReader temp_reader = new BufferedReader(new FileReader(F_temp));
 
-                        if (Temp_overflow[j].substring(0, 2).equals("-1")){
-                            //skip line
-                        }
-                        else {
+                while ((s = Data_reader.readLine()) != null) {
+                    s = s.substring(5, 45);
+                    if (Temp_overflow[j].substring(5, 45).compareTo(s) == 0) {     // update record / delete record
 
-                            //skip line and write new information
+                        if (Temp_overflow[j].substring(0, 2).equals("-1")) { //delete
 
-                            while((RAF2.readLine())!=null)
-                            {
-                                RAF2.readLine();
+                            //do nothing
+                            while ((s = Data_reader.readLine()) != null) {
+                                temp_writer.write(s);
+                                temp_writer.newLine();
                             }
-                        }
-                        break;
+                        } else {                                                //update
+                                temp_writer.write(s);
+                                temp_writer.newLine();
+                            while ((s = Data_reader.readLine()) != null) {
+                                temp_writer.write(s);
+                                temp_writer.newLine();
+                            }
 
+                        }
                     }
                     else if (Temp_overflow[j].substring(5, 45).compareTo(s) > 0) {  //add record
 
-                        System.out.println(s);
-                        System.out.println(Temp_overflow[j]);
-                        //write string down
-                        while((s=RAF2.readLine())!=null)
-                        {
-                        RAF2.readLine();
-                        }
 
-                        break;
+                            //write rest of the file down
+                            while ((s = Data_reader.readLine()) != null) {
+                                temp_writer.write(s);
+                                temp_writer.newLine();
+                            }
+
+
+                        }
+                    temp_writer.write(s);
+                    temp_writer.newLine();
                     }
+                    //write back to .data
+
+                    //close for next loop
+                    //data_writer.close();
+                    Data_reader.close();
+                    temp_reader.close();
+                    temp_writer.close();
 
                 }
+
+                System.out.println("merge Successful");
+                // update config file for new line count
+                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
+
+                //erases file.
+                PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
+                pw.close();
+
             }
-
-            System.out.println("merge Successful");
-            //erases file.
-            PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
-            pw.close();
-
-            // update config file for new line count
-            Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
-            //if yes update .data with each line from overflow.
-            //how???
-
         }
-    }
 
     public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException{
         String record = "NOT_FOUND";
@@ -435,7 +440,7 @@ public class Main {
             break;
         case 5:
 
-            Update_record(Din2);
+            Update_record(Din2,Din3);
 
             menu();
             break;
@@ -448,7 +453,7 @@ public class Main {
 
         case 7:
             if(Is_Open) {
-                Add_Record();
+                Add_Record(Din2,Din3);
             }
             else
                 System.out.println("please open a database");
