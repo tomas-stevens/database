@@ -2,8 +2,7 @@
 //Developers Names: Tomas Stevens, Divya Vardhan Singh
 //Purpose: Developing homework 1's database and problems
 //Github:tomas-stevens, (divyas)
-//Resources:stack overflow, geekforgeek, other sites
-//Time spent on project: Tomas: 12 hours, Divya, 10 hours
+//Time spent on project: Tomas: 22 hours, Divya, 14 hours
 //---------------------------------------------------------------------
 import java.io.*;
 import java.io.IOException;
