@@ -145,14 +145,19 @@ public class Main {
         int linecount = 0;
         String[] Temp_overflow = new String[5];
         String s;
+        String temp2;
+        String temp_s;
         BufferedReader overflow_reader = new BufferedReader(new FileReader(FILENAME + ".overflow"));
         while ((overflow_reader.readLine()) != null)    //Reading Content from the file line by line
         {
             linecount++;               //For each line increment linecount by one
         }
+        overflow_reader.close();
 
 
         if (linecount == 4) {
+
+            overflow_reader = new BufferedReader(new FileReader(FILENAME + ".overflow"));
             for (int i = 0; i < linecount; i++) {
                 Temp_overflow[i] = overflow_reader.readLine();  // reads in data from overflow
             }
@@ -163,14 +168,16 @@ public class Main {
 
             for (int j = 0; j < linecount; j++) {
                 //files to open and close each loop
-               // BufferedWriter data_writer = new BufferedWriter(new FileWriter(FILENAME + ".data"));
+
                 BufferedReader Data_reader = new BufferedReader(new FileReader(FILENAME + ".data"));
                 BufferedWriter temp_writer = new BufferedWriter(new FileWriter(F_temp));
-                BufferedReader temp_reader = new BufferedReader(new FileReader(F_temp));
+
 
                 while ((s = Data_reader.readLine()) != null) {
-                    s = s.substring(5, 45);
-                    if (Temp_overflow[j].substring(5, 45).compareTo(s) == 0) {     // update record / delete record
+                    temp_s = s.substring(5, 45);
+                    temp2 = Temp_overflow[j].substring(5,45);
+
+                    if (temp2.compareTo(temp_s) == 0) {     // update record / delete record
 
                         if (Temp_overflow[j].substring(0, 2).equals("-1")) { //delete
 
@@ -180,36 +187,44 @@ public class Main {
                                 temp_writer.newLine();
                             }
                         } else {                                                //update
-                                temp_writer.write(s);
-                                temp_writer.newLine();
+                            temp_writer.write(Temp_overflow[j]);
+                            temp_writer.newLine();
                             while ((s = Data_reader.readLine()) != null) {
                                 temp_writer.write(s);
                                 temp_writer.newLine();
                             }
 
                         }
-                    }
-                    else if (Temp_overflow[j].substring(5, 45).compareTo(s) > 0) {  //add record
+                    } else if (temp2.compareTo(temp_s) < 0) {  //add record
 
-
-                            //write rest of the file down
-                            while ((s = Data_reader.readLine()) != null) {
-                                temp_writer.write(s);
-                                temp_writer.newLine();
-                            }
-
-
+                        temp_writer.write(Temp_overflow[j]);
+                        temp_writer.newLine();
+                        //write rest of the file down
+                        while ((s = Data_reader.readLine()) != null) {
+                            temp_writer.write(s);
+                            temp_writer.newLine();
                         }
-                    temp_writer.write(s);
-                    temp_writer.newLine();
+
+
+                    } else {
+                        temp_writer.write(s);
+                        temp_writer.newLine();
                     }
+                }
                     //write back to .data
+                temp_writer.close();
+                Data_reader.close();
 
-                    //close for next loop
-                    //data_writer.close();
-                    Data_reader.close();
+                BufferedWriter data_writer = new BufferedWriter(new FileWriter(FILENAME + ".data"));
+                BufferedReader temp_reader = new BufferedReader(new FileReader(F_temp));
+                String trana;
+                while ((trana=temp_reader.readLine()) != null) {
+                    data_writer.write(trana);
+                    data_writer.newLine();
+                }
+                //close for next loop
+                    data_writer.close();
                     temp_reader.close();
-                    temp_writer.close();
 
                 }
 
@@ -220,6 +235,7 @@ public class Main {
                 //erases file.
                 PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
                 pw.close();
+
 
             }
         }
