@@ -141,17 +141,23 @@ public class Main {
     public static void Overflow_handler() throws IOException {
 
         File f2 =new File(FILENAME + ".overflow");
-        FileReader fr = new FileReader(f2);
-        BufferedReader br = new BufferedReader(fr);
+        RandomAccessFile RAF = new RandomAccessFile(f2,"rw");
         int linecount = 0;
+        String[] Temp_overflow = new String[5];
         String s;
-        while((s=br.readLine())!=null)    //Reading Content from the file line by line
+        while((s=RAF.readLine())!=null)    //Reading Content from the file line by line
         {
             linecount++;               //For each line increment linecount by one
         }
         if(linecount == 4){
-
+            RAF.seek(0);
+            for(int i = 0; i < linecount; i++) {
+                Temp_overflow[i] = RAF.readLine();
+            }
             System.out.println("full!!!!");
+            //if yes update .data with each line from overflow.
+            //how???
+
 
             //erases new file.
             PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
@@ -247,7 +253,6 @@ public class Main {
             linecount++;               //For each line increment linecount by one
            }
            NUM_RECORDS = linecount;
-           System.out.println(NUM_RECORDS);
            bw.write(NUM_RECORDS);
            bw.newLine();
            bw.write("number of records");
@@ -360,7 +365,7 @@ public class Main {
             if (Is_Open) {
                 //try catch not open
                 System.out.println("closing current files/databases");  //untested but done
-                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
+                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow"); // updates config
                 Din1.close();  //<-- closes the current files/databases
                 Din2.close();
                 Din3.close();
@@ -425,7 +430,6 @@ public class Main {
             break;
         }
     }
-
 
     public static void main(String[] args) throws IOException
     {
