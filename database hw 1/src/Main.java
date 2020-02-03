@@ -30,7 +30,7 @@ public class Main {
 
     public static void Add_Record() throws IOException {
         // get info from user
-        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
 
         String[] temp = new String[6];
@@ -60,7 +60,7 @@ public class Main {
     }
 
     public static void Delete_record(RandomAccessFile Din) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
         System.out.println("Please enter the name of the company you wish to delete from the database");
         String Record = binarySearch(Din, inp.next());
@@ -95,7 +95,7 @@ public class Main {
     }
 
     public static void Update_record(RandomAccessFile Din) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
         System.out.println("Please enter the name of the company you wish to update from the database");
         String Record = binarySearch(Din, inp.next());
@@ -135,19 +135,35 @@ public class Main {
         }
         else
             System.out.println("Record not found");
-
         Overflow_handler();
     }
 
-    public static void Overflow_handler(){
-        //is overflow full?
-        //if no exit function
-        //if yes update .data with each line from overflow.
-        //how???
-        //exit function
+    public static void Overflow_handler() throws IOException {
 
-        String record;
+        File f2 =new File(FILENAME + ".overflow");
+        FileReader fr = new FileReader(f2);
+        BufferedReader br = new BufferedReader(fr);
+        int linecount = 0;
+        String s;
+        while((s=br.readLine())!=null)    //Reading Content from the file line by line
+        {
+            linecount++;               //For each line increment linecount by one
+        }
+        if(linecount == 4){
 
+            System.out.println("full!!!!");
+
+            //erases new file.
+            PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
+            pw.close();
+
+
+            // update config file for new line count
+            Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
+            //if yes update .data with each line from overflow.
+            //how???
+
+        }
     }
 
     public static String getRecord(RandomAccessFile Din, int recordNum) throws IOException{
@@ -207,13 +223,16 @@ public class Main {
             }
         }
 
-    public static void Create_config(String FILENAME, String Path_2) throws IOException {
+    public static void Create_config(String FILENAME, String Path_2, String Overflow) throws IOException {
 
            File f1=new File(FILENAME); //Creation of File Descriptor for input file
            File f2 =new File(Path_2);
+           File f3 = new File(Overflow);
            FileReader fr=new FileReader(f1);  //Creation of File Reader object
+           FileReader fr1 = new FileReader(f3);
            FileWriter fw = new FileWriter(f2);
            BufferedReader br = new BufferedReader(fr);    //Creation of File Reader object
+           BufferedReader br1 = new BufferedReader(fr1);
            BufferedWriter bw = new BufferedWriter(fw);
 
            int linecount=0;            //Initializing linecount as zero
@@ -223,7 +242,12 @@ public class Main {
            {
                linecount++;               //For each line increment linecount by one
            }
+           while((s=br1.readLine())!=null)    //Reading Content from the file line by line
+           {
+            linecount++;               //For each line increment linecount by one
+           }
            NUM_RECORDS = linecount;
+           System.out.println(NUM_RECORDS);
            bw.write(NUM_RECORDS);
            bw.newLine();
            bw.write("number of records");
@@ -235,7 +259,6 @@ public class Main {
            bw.close();
            fr.close();
 
-           System.out.println(".Config created successfully");
 
        }
 
@@ -279,7 +302,7 @@ public class Main {
         try {
             Create_Data(FILENAME+".csv", FILENAME + ".data");
             Create_Overflow(FILENAME);
-            Create_config(FILENAME + ".data", FILENAME + ".config");
+            Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
 
 
         } catch (IOException e) {
@@ -322,6 +345,7 @@ public class Main {
                 System.out.println("Please enter the name of the file you with to open!");
                 FILENAME = inp.next();
                 Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
+                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow"); // handles reading in record number.
                 Din2 = new RandomAccessFile(FILENAME + ".data", "rw");
                 Din3 = new RandomAccessFile(FILENAME + ".overflow", "rw");
                 Is_Open = true;
@@ -336,7 +360,8 @@ public class Main {
             if (Is_Open) {
                 //try catch not open
                 System.out.println("closing current files/databases");  //untested but done
-                Din1.close();  //<-- closses the current files/databases
+                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
+                Din1.close();  //<-- closes the current files/databases
                 Din2.close();
                 Din3.close();
                 Is_Open = false;
