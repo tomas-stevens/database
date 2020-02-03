@@ -139,30 +139,77 @@ public class Main {
     }
 
     public static void Overflow_handler() throws IOException {
-
+        File f1 = new File(FILENAME + ".data");
+        File F_temp = new File(FILENAME + ".temp");
         File f2 =new File(FILENAME + ".overflow");
+        RandomAccessFile RAF_temp = new RandomAccessFile(F_temp, "rw");
         RandomAccessFile RAF = new RandomAccessFile(f2,"rw");
+        RandomAccessFile RAF2 = new RandomAccessFile(f1, "rw");
+
         int linecount = 0;
+        int linecount2 = 0;
         String[] Temp_overflow = new String[5];
         String s;
-        while((s=RAF.readLine())!=null)    //Reading Content from the file line by line
+
+        while((RAF.readLine())!=null)    //Reading Content from the file line by line
         {
             linecount++;               //For each line increment linecount by one
         }
+
         if(linecount == 4){
             RAF.seek(0);
             for(int i = 0; i < linecount; i++) {
                 Temp_overflow[i] = RAF.readLine();
             }
-            System.out.println("full!!!!");
-            //if yes update .data with each line from overflow.
-            //how???
 
+            System.out.println("overflow is full, merging now." + NL);
 
-            //erases new file.
+            while((s=RAF2.readLine())!=null)    //Reading Content from the file line by line
+            {
+                linecount2++;               //For each line increment linecount2 by one to get .data file
+            }
+
+            RAF2.seek(0);
+            for (int j = 0; j < linecount; j++) {
+                for (int i = 0; i < linecount2; i++) {
+                    s = RAF2.readLine().substring(5,45);
+                    if(Temp_overflow[j].substring(5,45).compareTo(s) == 0){ // update record
+
+                        if (Temp_overflow[j].substring(0, 2).equals("-1")){
+                            //skip line
+                        }
+                        else {
+
+                            //skip line and write new information
+
+                            while((RAF2.readLine())!=null)
+                            {
+                                RAF2.readLine();
+                            }
+                        }
+                        break;
+
+                    }
+                    else if (Temp_overflow[j].substring(5, 45).compareTo(s) > 0) {  //add record
+
+                        System.out.println(s);
+                        System.out.println(Temp_overflow[j]);
+                        //write string down
+                        while((s=RAF2.readLine())!=null)
+                        {
+                        RAF2.readLine();
+                        }
+
+                        break;
+                    }
+
+                }
+            }
+
+            System.out.println("merge Successful");
+            //erases file.
             PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
             pw.close();
-
 
             // update config file for new line count
             Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
