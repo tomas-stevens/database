@@ -36,11 +36,11 @@ public class Main {
         System.out.println("Please enter the Rank of the company");
         temp[0] = inp.next();
         System.out.println("Please enter the name of the company");
-        temp[1] = inp.next();
+        temp[1] = inp.next().toUpperCase();
         System.out.println("Please enter the City of the company");
-        temp[2] = inp.next();
+        temp[2] = inp.next().toUpperCase();
         System.out.println("Please enter the State of the company");
-        temp[3] = inp.next();
+        temp[3] = inp.next().toUpperCase();
         System.out.println("Please enter the ZIP of the company");
         temp[4] = inp.next();
         System.out.println("Please enter the number of the employees in the company");
@@ -62,7 +62,7 @@ public class Main {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
         System.out.println("Please enter the name of the company you wish to delete from the database");
-        String Record = binarySearch(Din2, inp.next());
+        String Record = binarySearch(Din2, inp.next().toUpperCase());
         if (!Record.equals("NOT_FOUND")) {
             System.out.println("Is this the record you wish to Delete? (y/n)" + NL + Record);
             if (inp.next().equals("y") || inp.next().equals("Y")) {
@@ -97,7 +97,7 @@ public class Main {
         BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME + ".overflow", true));
         Scanner inp = new Scanner(System.in);
         System.out.println("Please enter the name of the company you wish to update from the database");
-        String Record = binarySearch(Din2, inp.next());
+        String Record = binarySearch(Din2, inp.next().toUpperCase());
 
 
         if (!Record.equals("NOT_FOUND")) {
@@ -110,9 +110,9 @@ public class Main {
                 temp[0] = inp.next();
                 temp[1] = Record.substring(5,45).trim();
                 System.out.println("Please enter the City of the company");
-                temp[2] = inp.next();
+                temp[2] = inp.next().toUpperCase();
                 System.out.println("Please enter the State of the company");
-                temp[3] = inp.next();
+                temp[3] = inp.next().toUpperCase();;
                 System.out.println("Please enter the ZIP of the company");
                 temp[4] = inp.next();
                 System.out.println("Please enter the number of the employees in the company");
@@ -414,13 +414,18 @@ public class Main {
             break;
         case 2:
             if(!Is_Open) {
-                System.out.println("Please enter the name of the file you with to open!");
-                FILENAME = inp.next();
-                Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
-                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow"); // handles reading in record number.
-                Din2 = new RandomAccessFile(FILENAME + ".data", "rw");
-                Din3 = new RandomAccessFile(FILENAME + ".overflow", "rw");
-                Is_Open = true;
+                try {
+                    System.out.println("Please enter the name of the file you with to open!");
+                    FILENAME = inp.next();
+                    Din1 = new RandomAccessFile(FILENAME + ".config", "rw");
+                    Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow"); // handles reading in record number.
+                    Din2 = new RandomAccessFile(FILENAME + ".data", "rw");
+                    Din3 = new RandomAccessFile(FILENAME + ".overflow", "rw");
+                    Is_Open = true;
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         else
             System.out.println("database is already open!");
@@ -445,7 +450,7 @@ public class Main {
         case 4:
             if(Is_Open) {
                 System.out.println("Please enter the name of the company in the database you wish to find!");
-                String temp_find_name = inp.next();
+                String temp_find_name = inp.next().toUpperCase();
                 String Record = binarySearch(Din2, temp_find_name);
                 System.out.println("getRecord(n): \n" + Record + "\n\n");
             }
@@ -498,8 +503,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         menu();
     }
 }
