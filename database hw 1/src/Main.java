@@ -138,7 +138,7 @@ public class Main {
     }
 
     public static void Overflow_handler() throws IOException {
-        File F_temp = new File(FILENAME + ".temp");
+        File F_temp = new File("temp.data");
 
 
         int linecount = 0;
@@ -147,8 +147,10 @@ public class Main {
         String temp2;
         String temp_s;
         BufferedReader overflow_reader = new BufferedReader(new FileReader(FILENAME + ".overflow"));
-        while ((overflow_reader.readLine()) != null)    //Reading Content from the file line by line
+
+        while (((s=overflow_reader.readLine())) != null)    //Reading Content from the file line by line
         {
+
             linecount++;               //For each line increment linecount by one
         }
         overflow_reader.close();
@@ -226,7 +228,6 @@ public class Main {
                 //close for next loop
                     data_writer.close();
                     temp_reader.close();
-                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
                 }
 
                 System.out.println("merge Successful");
@@ -256,7 +257,6 @@ public class Main {
     public static String binarySearch(RandomAccessFile Din, String id) throws IOException{
         int Low = 0;
         int High = NUM_RECORDS-1;
-        System.out.println(NUM_RECORDS);
         int Middle;
         String MiddleId;
         String record = "NOT_FOUND";
@@ -265,6 +265,7 @@ public class Main {
         {
             Middle = (Low + High) / 2;
             record = getRecord(Din, Middle+1);
+
             MiddleId = record.substring(5,45);                                         //  Fortune_500_HQ
             MiddleId = MiddleId.trim();
             int result = MiddleId.compareTo(id);
