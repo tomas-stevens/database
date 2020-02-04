@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6efc4867-f492-4705-a09a-17527c13df5c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fortune_500_HQ.config" beforeDir="false" afterPath="$PROJECT_DIR$/Fortune_500_HQ.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fortune_500_HQ.data" beforeDir="false" afterPath="$PROJECT_DIR$/Fortune_500_HQ.data" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fortune_500_HQ.overflow" beforeDir="false" afterPath="$PROJECT_DIR$/Fortune_500_HQ.overflow" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/database hw 1/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/database hw 1/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -40,7 +37,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Erlang Terms" value="3" />
-          <entry key="JAVA" value="11098" />
+          <entry key="JAVA" value="11111" />
           <entry key="PLAIN_TEXT" value="57" />
         </counts>
       </usages-collector>
@@ -58,32 +55,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="191" column="50" selection-start-line="191" selection-start-column="50" selection-end-line="191" selection-end-column="50" />
+            <state relative-caret-position="257">
+              <caret line="256" column="19" selection-start-line="256" selection-start-column="19" selection-end-line="256" selection-end-column="19" />
               <folding>
                 <element signature="e#0#19481#0" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="method#Add_Record#0;class#Main#0" />
                 <element signature="method#Delete_record#0;class#Main#0" />
                 <element signature="method#Update_record#0;class#Main#0" />
-                <element signature="method#getRecord#0;class#Main#0" />
-                <element signature="method#binarySearch#0;class#Main#0" />
+                <element signature="method#Overflow_handler#0;class#Main#0" />
                 <element signature="method#CopyFile#0;class#Main#0" />
+                <element signature="method#Create_config#0;class#Main#0" />
                 <element signature="method#Create_Data#0;class#Main#0" />
                 <element signature="method#Create_Overflow#0;class#Main#0" />
                 <element signature="method#Create_database#0;class#Main#0" />
                 <element signature="method#menu#0;class#Main#0" />
                 <element signature="method#main#0;class#Main#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/String.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="1962" selection-start-line="1962" selection-end-line="1962" />
             </state>
           </provider>
         </entry>
@@ -100,8 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.data">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="476" column="110" lean-forward="true" selection-start-line="476" selection-start-column="110" selection-end-line="476" selection-end-column="110" />
+            <state relative-caret-position="380">
+              <caret line="502" lean-forward="true" selection-start-line="502" selection-end-line="502" />
             </state>
           </provider>
         </entry>
@@ -194,7 +182,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1580839018872" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1580839319828" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Capstone" />
   </component>
   <component name="RunDashboard">
@@ -252,7 +240,7 @@
       <workItem from="1580665911979" duration="1016000" />
       <workItem from="1580744200589" duration="14654000" />
       <workItem from="1580767973483" duration="5919000" />
-      <workItem from="1580835597463" duration="3337000" />
+      <workItem from="1580835597463" duration="3705000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1580310148863</created>
@@ -265,7 +253,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90303000" />
+    <option name="totallyTimeSpent" value="90671000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -405,15 +393,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.overflow">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
           <caret line="1962" selection-start-line="1962" selection-end-line="1962" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.overflow">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.config">
       <provider selected="true" editor-type-id="text-editor">
@@ -424,24 +412,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Fortune_500_HQ.data">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="476" column="110" lean-forward="true" selection-start-line="476" selection-start-column="110" selection-end-line="476" selection-end-column="110" />
+        <state relative-caret-position="380">
+          <caret line="502" lean-forward="true" selection-start-line="502" selection-end-line="502" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="191" column="50" selection-start-line="191" selection-start-column="50" selection-end-line="191" selection-end-column="50" />
+        <state relative-caret-position="257">
+          <caret line="256" column="19" selection-start-line="256" selection-start-column="19" selection-end-line="256" selection-end-column="19" />
           <folding>
             <element signature="e#0#19481#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="method#Add_Record#0;class#Main#0" />
             <element signature="method#Delete_record#0;class#Main#0" />
             <element signature="method#Update_record#0;class#Main#0" />
-            <element signature="method#getRecord#0;class#Main#0" />
-            <element signature="method#binarySearch#0;class#Main#0" />
+            <element signature="method#Overflow_handler#0;class#Main#0" />
             <element signature="method#CopyFile#0;class#Main#0" />
+            <element signature="method#Create_config#0;class#Main#0" />
             <element signature="method#Create_Data#0;class#Main#0" />
             <element signature="method#Create_Overflow#0;class#Main#0" />
             <element signature="method#Create_database#0;class#Main#0" />

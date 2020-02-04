@@ -188,8 +188,6 @@ public class Main {
                         } else {                                                //update
                             temp_writer.write(Temp_overflow[j]);
                             temp_writer.newLine();
-                            temp_writer.write(s);
-                            temp_writer.newLine();
                             while ((s = Data_reader.readLine()) != null) {
                                 temp_writer.write(s);
                                 temp_writer.newLine();
@@ -199,6 +197,8 @@ public class Main {
                     } else if (temp2.compareTo(temp_s) < 0) {  //add record
 
                         temp_writer.write(Temp_overflow[j]);
+                        temp_writer.newLine();
+                        temp_writer.write(s);
                         temp_writer.newLine();
                         //write rest of the file down
                         while ((s = Data_reader.readLine()) != null) {
@@ -256,6 +256,7 @@ public class Main {
     public static String binarySearch(RandomAccessFile Din, String id) throws IOException{
         int Low = 0;
         int High = NUM_RECORDS-1;
+        System.out.println(NUM_RECORDS);
         int Middle;
         String MiddleId;
         String record = "NOT_FOUND";
