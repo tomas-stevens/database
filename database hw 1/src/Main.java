@@ -18,7 +18,7 @@ public class Main {
     static String FILENAME = "Fortune_500_HQ";
     static String NL = System.lineSeparator();
     static int RECORD_SIZE = 112;
-    static int NUM_RECORDS = 499;
+    static int NUM_RECORDS = 1;
     static boolean Is_Open = false;
 
     private static RandomAccessFile Din1;
@@ -188,6 +188,8 @@ public class Main {
                         } else {                                                //update
                             temp_writer.write(Temp_overflow[j]);
                             temp_writer.newLine();
+                            temp_writer.write(s);
+                            temp_writer.newLine();
                             while ((s = Data_reader.readLine()) != null) {
                                 temp_writer.write(s);
                                 temp_writer.newLine();
@@ -224,16 +226,17 @@ public class Main {
                 //close for next loop
                     data_writer.close();
                     temp_reader.close();
-
+                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
                 }
 
                 System.out.println("merge Successful");
                 // update config file for new line count
-                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
+
 
                 //erases file.
                 PrintWriter pw = new PrintWriter(FILENAME + ".overflow");
                 pw.close();
+                Create_config(FILENAME + ".data", FILENAME + ".config", FILENAME + ".overflow");
 
 
             }
@@ -257,8 +260,7 @@ public class Main {
         String MiddleId;
         String record = "NOT_FOUND";
         boolean Found = false;
-
-        while (!Found && (High >= Low))
+        while (!Found && High >= Low)
         {
             Middle = (Low + High) / 2;
             record = getRecord(Din, Middle+1);
@@ -320,7 +322,7 @@ public class Main {
             linecount++;               //For each line increment linecount by one
            }
            NUM_RECORDS = linecount;
-           bw.write(NUM_RECORDS);
+           bw.write(NUM_RECORDS + " number of records in overflow, and data");
            bw.newLine();
            bw.write("number of records");
            bw.newLine();
