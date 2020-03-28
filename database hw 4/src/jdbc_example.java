@@ -176,7 +176,7 @@ public class jdbc_example {
     // The main program", that tests the methods
     public static void main(String[] args) throws SQLException, IOException{
         String Username = "ts025";              // Change to your own username
-        String mysqlPassword = "Lordbubba123";    // Change to your own mysql Password
+        String mysqlPassword = "";    // Change to your own mysql Password
 
         menu();
 
