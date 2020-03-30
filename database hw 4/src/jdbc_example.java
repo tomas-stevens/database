@@ -23,7 +23,7 @@ public class jdbc_example {
     private Connection connection;
     private Statement statement;
     static String NL = System.lineSeparator();
-    static int agent_val = 210;
+    static int agent_val = 208;
 
     // The constructor for the class
     public jdbc_example() {
@@ -110,6 +110,57 @@ public class jdbc_example {
         }
     }
 
+    public void Find_agents_clients(){
+    
+        String city;
+        Scanner inp = new Scanner(System.in);
+        
+        System.out.println("What is the name of the city you want to find clients and agents in?");
+        
+        city = inp.next();
+        
+        String query1 = "select A_NAME as agents_in_" + city + " from AGENTS where A_CITY = '" + city + "'";
+        String query2 = "select C_NAME as 'clients in " + city + "' from CLIENTS where C_city = '" + city + "'";
+        
+        query(query1);
+        query(query2);
+    }
+ 
+
+    public void cancle_POLICY(){
+        String temp[] = new String[4];
+        Scanner inp = new Scanner(System.in);
+
+        //post policies
+        String query1 = "SELECT * from POLICIES_SOLD";
+        query(query1);
+
+        //ask what to remove
+        System.out.println("Which PURCHASE_ID do you wish to cancel?");
+        temp[0] = inp.next();
+
+        System.out.println("are you sure this is what you would like to delete? (y,n)");
+        query("SELECT * from POLICIES_SOLD where PURCHASE_ID = " + temp[0]);
+
+        //confirm
+        if(inp.next().equals("y") || inp.next().equals("Y")){
+
+            //delete desired policy
+
+            try {
+                query1 = "delete from POLICIES_SOLD WHERE PURCHASE_ID = " + temp[0];
+               int q = statement.executeUpdate(query1);
+               System.out.println(q + " row has been affected");
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            System.out.println("returning to menu");
+    }
+
+
     public void Add_agent_city(){
         String temp[] = new String[4];
         Scanner inp = new Scanner(System.in);
@@ -130,18 +181,19 @@ public class jdbc_example {
         if(inp.next().equals("y") || inp.next().equals("Y")){
             String a = agent_val + ", " + "'" + temp[1] + "', '" + temp[2] + "', " + temp[3];
             insert("AGENTS", a);
+            agent_val++;
+
+            //show user agents from that city
+            String query1 = "SELECT * from AGENTS";
+            query(query1);
         }
         else
             System.out.println("returning to menu");
-            String query1 = "SELECT * from AGENTS";
-            query(query1);
 
 
 
-        }
 
-
-
+    }
 
 
     public  void menu() throws IOException{
@@ -162,8 +214,8 @@ public class jdbc_example {
         int query = inp.nextInt();
         switch(query){
             case 1:
-
-                System.out.println("hello");
+                Find_agents_clients();
+                
                 menu();
                 break;
 
@@ -180,13 +232,13 @@ public class jdbc_example {
                 break;
 
             case 4:
-
+                cancle_POLICY();
 
                 menu();
                 break;
 
             case 5: 
-                Add_agent_city();
+                Add_agent_city();                       //done
 
                 menu();
                 break;
@@ -210,18 +262,16 @@ public class jdbc_example {
     // The main program", that tests the methods
     public static void main(String[] args) throws SQLException, IOException{
         String Username = "ts025";              // Change to your own username
-        String mysqlPassword = "";    // Change to your own mysql Password
+        String mysqlPassword = "Lordbubba123";    // Change to your own mysql Password
 
       
 
         jdbc_example test = new jdbc_example();
         test.connect(Username, mysqlPassword);
         test.initDatabase(Username, mysqlPassword, Username);
-        String query1 = "SELECT * from AGENTS";
 
         test.menu();
-      
-        test.query(query1);
+
         test.disConnect();
     }
 
