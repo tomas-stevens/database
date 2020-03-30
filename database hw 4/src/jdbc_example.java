@@ -23,6 +23,7 @@ public class jdbc_example {
     private Connection connection;
     private Statement statement;
     static String NL = System.lineSeparator();
+    static int agent_val = 210;
 
     // The constructor for the class
     public jdbc_example() {
@@ -109,8 +110,41 @@ public class jdbc_example {
         }
     }
 
+    public void Add_agent_city(){
+        String temp[] = new String[4];
+        Scanner inp = new Scanner(System.in);
 
-    public static void menu() throws IOException{
+        //gathering information
+        System.out.println(" you have chosen to add an agent to a city " + 
+            "please input the required details"+ NL +
+            "what is the agents name?");
+        temp[1] = inp.next();
+        System.out.println("What is the city he is in?");
+        temp[2] = inp.next();
+        System.out.println("What is the zipcode of this city");
+        temp[3] = inp.next();
+        System.out.println("are you sure this is what you would like to add? (y,n)");
+        System.out.println("'" + temp[1] + "', '" + temp[2] + "', " + temp[3] + "?");
+        
+        //confirm
+        if(inp.next().equals("y") || inp.next().equals("Y")){
+            String a = agent_val + ", " + "'" + temp[1] + "', '" + temp[2] + "', " + temp[3];
+            insert("AGENTS", a);
+        }
+        else
+            System.out.println("returning to menu");
+            String query1 = "SELECT * from AGENTS";
+            query(query1);
+
+
+
+        }
+
+
+
+
+
+    public  void menu() throws IOException{
         System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
         "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
         "1: Find all agents and clients in a given city." +NL+
@@ -123,13 +157,13 @@ public class jdbc_example {
         Switch_select();
     }
 
-    public static void Switch_select() throws IOException {
+    public  void Switch_select() throws IOException {
         Scanner inp = new Scanner(System.in);
         int query = inp.nextInt();
         switch(query){
             case 1:
 
-
+                System.out.println("hello");
                 menu();
                 break;
 
@@ -152,7 +186,7 @@ public class jdbc_example {
                 break;
 
             case 5: 
-
+                Add_agent_city();
 
                 menu();
                 break;
@@ -178,31 +212,26 @@ public class jdbc_example {
         String Username = "ts025";              // Change to your own username
         String mysqlPassword = "";    // Change to your own mysql Password
 
-        menu();
+      
 
         jdbc_example test = new jdbc_example();
         test.connect(Username, mysqlPassword);
         test.initDatabase(Username, mysqlPassword, Username);
+        String query1 = "SELECT * from AGENTS";
 
-
-
-
-        // String query1 = "SELECT * from Dish";
-        // String query2 = "SELECT restaurantName, city, dishName, price " +
-        //         "FROM Restaurant, Dish, MenuItem " +
-        //         "WHERE MenuItem.restaurantNo=Restaurant.restaurantID " +
-        //         "AND MenuItem.dishNo=Dish.dishNo";
-
-        // test.query(query1);
-        // test.query(query2);
-
+        test.menu();
+      
+        test.query(query1);
         test.disConnect();
     }
+
+
 
     // Remove all records and fill them with values for testing
     // Assumes that the tables are already created
     public void initDatabase(String Username, String Password, String SchemaName) throws SQLException {
         statement = connection.createStatement();
+        System.out.println("begun initilizing new database");
         statement.executeUpdate("DELETE from POLICIES_SOLD");
         statement.executeUpdate("DELETE from POLICY");
         statement.executeUpdate("DELETE from CLIENTS");
@@ -242,6 +271,7 @@ public class jdbc_example {
         insert("POLICIES_SOLD", "409,203,103,304,'2020-01-10',5000.00");
         insert("POLICIES_SOLD", "410,202,103,303,'2020-01-30',2000.00");
 
+        System.out.println("finished initilizing new database");
 
     }
 }
