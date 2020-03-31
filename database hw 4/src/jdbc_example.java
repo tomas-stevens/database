@@ -98,6 +98,7 @@ public class jdbc_example {
             }
             System.out.println("");
         }
+
     }
 
     // Insert into any table, any values from data passed in as String parameters
@@ -126,6 +127,27 @@ public class jdbc_example {
         query(query2);
     }
  
+
+
+    public void List_Policies_by_agent(){
+        String pba[] = new String[4];
+        Scanner inp = new Scanner(System.in);
+
+        System.out.println("What is the name of the agent you wish to find?");
+        pba[1] = inp.next();
+        System.out.println("What city does he work in?");
+        pba[2] = inp.next();
+
+
+        String query1 = "select p.NAME, p.type, p.COMMISSION_PERCENTAGE " + 
+        "from POLICY p, POLICIES_SOLD ps, AGENTS a " + 
+        "where a.A_NAME = '" + pba[1] +"'and a.A_CITY = '" + pba[2] + "' and a.A_ID = ps.AGENT_ID and ps.POLICY_ID = p.POLICY_ID";
+
+
+        query(query1);
+
+
+    }
 
     public void cancle_POLICY(){
         String temp[] = new String[4];
@@ -184,7 +206,7 @@ public class jdbc_example {
             agent_val++;
 
             //show user agents from that city
-            String query1 = "SELECT * from AGENTS";
+            String query1 = "SELECT * from AGENTS where A_CITY = '" + temp[2] + "'";
             query(query1);
         }
         else
@@ -197,8 +219,8 @@ public class jdbc_example {
 
 
     public  void menu() throws IOException{
-        System.out.println("Hello, and welcome to database homework 1. I will be your guide!" + NL+
-        "below are 9 options you have a choice between. Please select one of these for the next step!" +NL+
+        System.out.println(NL + NL +"Hello, and welcome to database homework 1. I will be your guide!" + NL+
+        "below are 6 options you have a choice between. Please select one of these for the next step!" +NL+
         "1: Find all agents and clients in a given city." +NL+
         "2: Add a new client, then purchase an available policy from a particular agent." +NL+
         "3: List all policies sold by a particular agent." +NL+
@@ -226,7 +248,7 @@ public class jdbc_example {
                 break;
 
             case 3: 
-
+                List_Policies_by_agent();
 
                 menu();
                 break;
@@ -262,7 +284,7 @@ public class jdbc_example {
     // The main program", that tests the methods
     public static void main(String[] args) throws SQLException, IOException{
         String Username = "ts025";              // Change to your own username
-        String mysqlPassword = "Lordbubba123";    // Change to your own mysql Password
+        String mysqlPassword = "";    // Change to your own mysql Password
 
       
 
