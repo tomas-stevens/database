@@ -2,7 +2,7 @@
 //Developers Names: Tomas Stevens, Divya Vardhan Singh
 //Purpose: Developing homework 4's database and problems
 //Github:tomas-stevens, (divyas)
-//Time spent on project: Tomas: N/A, Divya: N/A hours
+//Time spent on project: Tomas: 12, Divya: 10 hours
 //---------------------------------------------------------------------
 
 import java.io.*;
@@ -24,14 +24,14 @@ public class jdbc_example {
     private Statement statement;
     static String NL = System.lineSeparator();
     static int agent_val = 208;
+    static int client_val = 107;
+    static int Purchase_ID = 411;
 
     // The constructor for the class
     public jdbc_example() {
         connection = null;
         statement = null;
     }
-
-
 
     // Connect to the database
     public void connect(String Username, String mysqlPassword) throws SQLException {
@@ -110,7 +110,7 @@ public class jdbc_example {
             e.printStackTrace();
         }
     }
-
+    //find all existing agents in a given city
     public void Find_agents_clients(){
     
         String city;
@@ -126,9 +126,81 @@ public class jdbc_example {
         query(query1);
         query(query2);
     }
- 
+    //purchase a policy from a specific agent
+    public void purchase_policy(){
+        String temp[] = new String[4];
+        Scanner inp = new Scanner(System.in);
+    
+        //gathering information
+        System.out.println(" We will need some information from you before we can process your policy purchase." + NL);
+    
+        System.out.println("What is your name?");
+        temp[1] = inp.next();
+        System.out.println("What is the city you live in?");
+        temp[2] = inp.next();
+        System.out.println("What is the zipcode of this city");
+        temp[3] = inp.next();
+        System.out.println("Are you sure your details are correct as mentioned below? (y,n)");
+        System.out.println("'" + temp[1] + "', '" + temp[2] + "', " + temp[3] + "?");
+        
+        //confirm
+        if(inp.next().equals("y") || inp.next().equals("Y")){
+
+        String c = client_val + ", " + "'" + temp[1] + "', '" + temp[2] + "', " + temp[3];
+        insert("CLIENTS", c);
+        int x = 0;
+
+        while(x == 0)
+        {
+            System.out.println("Which of the following policy would you like to purchase?");
+            String query1 = "SELECT * from POLICY";
+            query(query1);
+            System.out.println("Enter the type policy you want.");
+            String t = inp.next();
+            String type = t.toUpperCase();
+
+            //check if policy is found
+            if(type.equals("DENTAL") || type.equals("LIFE") || type.equals("HOME") || type.equals("HEALTH") || type.equals("VEHICLE"))
+            {
+                String query2 = "select A_ID as Agent_ID, A_NAME as Agents_Available_In_" + temp[2] +  " from AGENTS where A_CITY = '" + temp[2] + "'";
+                query(query2);
+                query(query1);
+
+                //gather info for insert into policies_purchased
+                System.out.println("Choose an Agent and choice of the policy that you would like to purchase.");
+                System.out.println("Enter the Agent_ID for the agent you would like to buy your policy from.");
+                int agent_id = inp.nextInt();
+                System.out.println("Enter the POLICY_ID of the policy you would like to purchase.");
+                int policy_id = inp.nextInt();
+                System.out.println("Enter the total amount for which you would like to purchase the policy for.");
+                int amount = inp.nextInt();
+                System.out.println("Enter the date on which you want the transaction processed in the following format YYYY-MM-DD");
+                String date = inp.next();       
+
+                //Adding all this data on the database
+                String p = Purchase_ID + ", "+ agent_id + ", " + client_val + ", " + policy_id + ",'" + date + "'," + amount;
 
 
+                insert("POLICIES_SOLD", p);
+                client_val++;
+                Purchase_ID++;
+                x = 1;
+            }
+        
+            else
+            {
+                System.out.println("Please enter a valid policy type");
+            }
+        }
+    
+                }
+    
+                else
+                    System.out.println("returning to menu");
+    
+    
+    }
+    //list all policies sold byu a an agent
     public void List_Policies_by_agent(){
         String pba[] = new String[4];
         Scanner inp = new Scanner(System.in);
@@ -148,7 +220,7 @@ public class jdbc_example {
 
 
     }
-
+    //cancel a policy
     public void cancle_POLICY(){
         String temp[] = new String[4];
         Scanner inp = new Scanner(System.in);
@@ -181,8 +253,7 @@ public class jdbc_example {
         else
             System.out.println("returning to menu");
     }
-
-
+    //add a agent to a city
     public void Add_agent_city(){
         String temp[] = new String[4];
         Scanner inp = new Scanner(System.in);
@@ -216,8 +287,7 @@ public class jdbc_example {
 
 
     }
-
-
+    //introduction
     public  void menu() throws IOException{
         System.out.println(NL + NL +"Hello, and welcome to database homework 1. I will be your guide!" + NL+
         "below are 6 options you have a choice between. Please select one of these for the next step!" +NL+
@@ -230,7 +300,7 @@ public class jdbc_example {
 
         Switch_select();
     }
-
+    //select what you want to do
     public  void Switch_select() throws IOException {
         Scanner inp = new Scanner(System.in);
         int query = inp.nextInt();
@@ -242,7 +312,7 @@ public class jdbc_example {
                 break;
 
             case 2:
-
+                purchase_policy();
 
                 menu();
                 break;
@@ -276,11 +346,6 @@ public class jdbc_example {
                 break;
         }
     }
-
-
-
-
-
     // The main program", that tests the methods
     public static void main(String[] args) throws SQLException, IOException{
         String Username = "ts025";              // Change to your own username
@@ -296,9 +361,6 @@ public class jdbc_example {
 
         test.disConnect();
     }
-
-
-
     // Remove all records and fill them with values for testing
     // Assumes that the tables are already created
     public void initDatabase(String Username, String Password, String SchemaName) throws SQLException {
