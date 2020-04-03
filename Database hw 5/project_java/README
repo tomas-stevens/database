@@ -1,0 +1,51 @@
+http://pausch.ddns.uark.edu/?page_id=316 has details on how to set up your permissions.  
+The directory with the code must be:  drwxr-xr-x MYUSERNAME www-data etc
+
+Here is a summary.
+
+1. cd                        // go to your home directory
+2. chmod o+x public_html     // make sure that your web directory is accessible by everyone
+3. cd public_html            // go to your web space
+4. cp ~sgauch/public_html/4523/S17/hw/project/* .     // copy the 3 tar files to your new directory
+5. tar xvf project_java.tar   // untar the sample java code
+6. chmod o+x project_java     // make the project_java directory accessible by everyone
+7. cd project_java
+8. Open:  http://www.csce.uark.edu/~MYUSERNAME/project_java/hello.html in a web browser
+9. Edit jdbc_insert_restaurant.java; replace MYUSERNAME and MYMYSQLPASSWORD
+10. ./build_jdbc.bash         // compile the sample code
+11. Open:  http://www.csce.uark.edu/~MYUSERNAME/project_java/hello.php in a web browser
+12. Open:  http://www.csce.uark.edu/~MYUSERNAME/project_java/jdbc_insert_restaurant.php in a web browser
+
+
+build_jdbc.bash
+   The bash shell script that compiles everything together.
+
+hello.html
+   A static html page to check that your project directory is accessible on the web
+   You can view this page at http://www.csce.uark.edu/~sgauch/project_java/hello.html
+
+hello.php
+   A php page that uses a form to get user input, then calls hello.class to echo it to the screen.
+   This checks that you can call php in your own directory and have it pass parameters to
+   an executable program.
+   You can view this page at http://www.csce.uark.edu/~sgauch/project_java/hello.php
+
+hello.java
+   The executable program called from hello.php.
+
+jdbc_db.h and jdbc_db.java
+   The jdbc_db class definition (header and implementation files).
+   This class contains a handful of useful functions that use jdbc to connect to mysql.
+
+jdbc_insert_restaurant.java
+   A java program that is includes (and uses) the jdbc_db class.  It is given arguments on the
+   command line, in the order:  name type city
+   e.g.,
+      turing$ java .: java -cp .:mysql-connector-java-5.1.40-bin.jar jdbc_insert_restaurant Flying\ Burrito Mexican Springdale
+   It connects to mysql to insert that restaurant into the Restaurant table.
+
+jdbc_insert_restaurant.php
+   The php program that displays a form, parses the user's input, then calls a program,
+   i.e., jdbc_insert_restaurant.class, using a system call.
+   The program called connects to mysql to insert a record into a table.
+   You can view this page at http://www.csce.uark.edu/~sgauch/project_java/jdbc_insert_restaurant.php
