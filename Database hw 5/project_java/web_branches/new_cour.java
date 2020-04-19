@@ -5,7 +5,7 @@ jdbc_insert_restaurant.java    // java program that is called by php that just d
 jdbc_db.java // class (no main program) that has useful methods
 */
 
-public class DBweb 
+public class new_cour 
 {
    // The main program that inserts a restaurant
    public static void main(String[] args) throws SQLException 
@@ -20,27 +20,30 @@ public class DBweb
 
       // For debugging purposes:  Show the database before the insert
       StringBuilder builder = new StringBuilder();
-      String query1 = "SELECT * from Student";
-      builder.append("<br> Table Student before:" + myDB.query(query1) + "<br>");       
+      String query1 = "SELECT * from Course";
+      builder.append("<br> Table course before:" + myDB.query(query1) + "<br>");       
 
       // Parse input string to get restauranrestaurant Name and Address
-      String restaurant = "4";
-      String ID = "0";
-      String stud_name = "TYPE";
-      String Major = "CITY";
+      String deptCode = "0";
+      String cour_num = "TYPE";
+      String title = "CITY";
+      String credit = "credit";
 
       // Read command line arguments
       // args[0] is the first parameter
-      ID = args[0];
-      stud_name = args[1];
-      Major = args[2];
+      deptCode = args[0];
+      cour_num = args[1];
+      title = args[2];
+      credit = args[3];
+      
+
 
       // Insert the new restaurant
-      String input = ID + ",'" + stud_name + "','" + Major + "'";             
-      myDB.insert("Student", input);    // insert new restaurant
+      String input = deptCode + ", " + cour_num + ", '" + title + "', '" + credit + "'";             
+      myDB.insert("Course", input);    // insert new restaurant
 
       // For debugging purposes:  Show the database after the insert
-      builder.append("<br><br><br> Table student after:" + myDB.query(query1));
+      builder.append("<br><br><br> Table Course after:" + myDB.query(query1));
       System.out.println(builder.toString());     
 
       myDB.disConnect();

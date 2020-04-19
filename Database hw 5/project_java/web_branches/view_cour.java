@@ -5,7 +5,7 @@ jdbc_insert_restaurant.java    // java program that is called by php that just d
 jdbc_db.java // class (no main program) that has useful methods
 */
 
-public class View_stud_helper 
+public class view_cour 
 {
    // The main program that inserts a restaurant
    public static void main(String[] args) throws SQLException 
@@ -20,9 +20,21 @@ public class View_stud_helper
 
       // For debugging purposes:  Show the database before the insert
       StringBuilder builder = new StringBuilder();
-      String query1 = "SELECT * from Student";
-      builder.append("<br> Table Student:" + myDB.query(query1) + "<br>");       
-      System.out.println(builder.toString()); 
+    
+
+      // Parse input string to get restauranrestaurant Name and Address
+      String deptCode = "0";
+
+      deptCode = args[0];
+
+
+      // Insert the new restaurant
+      String input = "SELECT * from Course where DeptCode = " + deptCode;  
+
+      // For debugging purposes:  Show the database after the insert
+      builder.append("<br><br><br> Table Course after:" + myDB.query(input));
+
+      System.out.println(builder.toString());   
       myDB.disConnect();
    }
 }
